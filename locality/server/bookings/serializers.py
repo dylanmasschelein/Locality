@@ -1,4 +1,3 @@
-from calendar import leapdays
 from rest_framework import serializers
 from bookings.models import Bookings
 
