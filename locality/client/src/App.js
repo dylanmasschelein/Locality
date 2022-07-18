@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./views/homePage";
@@ -18,11 +18,11 @@ function App() {
         <AuthProvider>
           <Navbar />
           <Routes>
-            <Route component={Login} path="/login" />
-            <Route component={Register} path="/register" />
-            <Route component={Home} path="/" />
-            <Route component={user ? ProtectedPage : Login} path={user ? '/protected': '/login'} />
-            {/* <PrivateRoute component={ProtectedPage} path="/protected" exact /> */}
+            <Route element={<Login />} path="/login" />
+            <Route element={<Register />} path="/register" />
+            <Route element={<Home />} path="/" />
+            {/* <Route element={<ProtectedPage />} path="/protected" /> */}
+
           </Routes>
         </AuthProvider>
         <Footer />
