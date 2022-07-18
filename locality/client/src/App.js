@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./views/homePage";
-import Login from "./views/loginPage";
+import Login from "./views/customerLoginPage";
 import Register from "./views/registerPage";
 import ProtectedPage from "./views/protectedPage";
 

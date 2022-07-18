@@ -1,0 +1,28 @@
+@use '../../../../partials/variables' as *;
+
+.base {
+	width: 165px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 0;
+	border: none;
+	border-radius: 5px;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.base:hover {
+	transform: scale(1.01);
+}
+
+.icon {
+	margin-left: 5px !important;
+}
+
+.disabled {
+	opacity: 0.4;
+}
+.disabled:hover {
+	transform: none;
+}

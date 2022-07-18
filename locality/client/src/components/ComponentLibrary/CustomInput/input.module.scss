@@ -1,0 +1,33 @@
+@use '../../../partials/variables' as *;
+
+.input_container {
+	padding: 8px 0;
+	width: 100%;
+}
+
+.input {
+	padding: 10px 5px;
+	width: 100%;
+	max-width: 100%;
+	border-radius: 5px;
+	border: 1px solid #9a9a9a3d;
+}
+
+.input::placeholder {
+	color: #c5c5c5;
+}
+
+.label {
+	display: inline-flex;
+	padding: 5px 0;
+	font-family: 'Lato';
+	font-weight: 600;
+	align-self: flex-start;
+}
+
+.input_error {
+	color: rgb(242, 41, 41);
+	font-size: 12px;
+	margin: 0;
+	align-self: flex-start;
+}

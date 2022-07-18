@@ -1,0 +1,66 @@
+@use './variables' as *;
+
+// FLexbox
+@mixin spacing-reset {
+	margin: 0;
+	padding: 0;
+}
+
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flex-justify($justify, $align: unset) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin flex-direction($direction) {
+	display: flex;
+	flex-direction: $direction;
+}
+
+@mixin column-center() {
+	@include flex-direction(column);
+	@include flex-center();
+}
+
+// Components
+@mixin primary-link() {
+	@include flex-center();
+	width: 165px;
+	padding: 10px 0;
+	border: none;
+	background: $model-blue;
+	color: #fff;
+	border-radius: $border-radius;
+	transition: transform 0.3s;
+	cursor: pointer;
+	text-decoration: none;  
+}
+
+@mixin hover-scale($scale: 1.01, ) {
+	transform: scale($scale);
+}
+
+// Breakpoints
+@mixin tablet {
+	@media screen and (min-width: $tablet) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media screen and (min-width: $desktop) {
+		@content;
+	}
+}
+
+@mixin monitor {
+	@media screen and (min-width: $monitor) {
+		@content;
+	}
+}
