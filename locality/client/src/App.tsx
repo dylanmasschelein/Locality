@@ -9,18 +9,16 @@ import LoginPage from './views/LoginPage';
 
 const App = () => (
 	<Router>
-		<div className="flex flex-col min-h-screen overflow-hidden">
-			<AuthProvider>
-				<Navbar />
-				<Routes>
-					<Route element={<CustomerRegistrationPage />} path="/customer-register" />
-					<Route element={<ServiceProviderRegistrationPage />} path="/service-provider-register" />
-					<Route element={<LoginPage />} path="/login" />
-					<Route element={<Home />} path="/" />
-				</Routes>
-			</AuthProvider>
-			<Footer />
-		</div>
+		<AuthProvider>
+			<Navbar />
+			<Routes>
+				<Route element={<CustomerRegistrationPage />} path="/customer-register" />
+				<Route element={<ServiceProviderRegistrationPage />} path="/service-provider-register" />
+				<Route element={<LoginPage />} path="/login" />
+				<Route element={<Home />} path="/" />
+			</Routes>
+		</AuthProvider>
+		{/* <Footer /> */}
 	</Router>
 );
 

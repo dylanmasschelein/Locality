@@ -4,7 +4,7 @@ import { Icon } from 'semantic-ui-react';
 
 interface IProps {
 	type?: 'button' | 'submit' | 'reset' | undefined;
-	styles?: string;
+	styles?: string | any;
 	handleClick?: any;
 	text: string | JSX.Element;
 	icon?: string | any;

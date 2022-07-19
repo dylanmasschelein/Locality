@@ -81,20 +81,29 @@ from django.db import models
 class User(AbstractUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    password2 = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)
+    password2 = models.CharField(max_length=200)
+    location = models.CharField(max_length=50)
 
 
-class Client(models.Model):
+class Customer(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
-    service_provider = models.CharField(max_length=20)
+    status = models.CharField(max_length=20)
+
+
+class Business(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    business_name = models.CharField(max_length=100)
+    legal_name = models.CharField(max_length=100)
+    business_license_number = models.IntegerField()
+    business_type = models.CharField(max_length=50)
 
 
 class ServiceProvider(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True)
-    service_provider = models.CharField(max_length=20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
 
 
 class Admin(models.Model):

@@ -10,6 +10,10 @@
 	border-radius: 5px;
 	transition: 0.3s;
 	cursor: pointer;
+	background: $local-green;
+	color: white;
+	font-weight: 700;
+	letter-spacing: 0.5px;
 }
 
 .base:hover {

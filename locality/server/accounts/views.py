@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer
+from accounts.serializer import MyTokenObtainPairSerializer, RegisterSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
-from api.models import User
+from accounts.models import User, Customer, ServiceProvider, Business
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
@@ -20,18 +20,30 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
+class CustomerRegisterView(generics.CreateAPIView):
+    queryset = Customer.objects.all()
     permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer
+    serializer_class = RegisterSerializer.CustomerSerializer
+
+
+class ServiceProviderRegisterView(generics.CreateAPIView):
+    queryset = ServiceProvider.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer.ServiceProviderSerializer
+
+
+class BusinessSerializer(generics.CreateAPIView):
+    queryset = Business.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer.BusinessSerializer
 
 
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        '/api/token/',
-        '/api/register/',
-        '/api/token/refresh/'
+        '/account/token/',
+        '/account/register/',
+        '/account/token/refresh/'
     ]
     return Response(routes)
 
