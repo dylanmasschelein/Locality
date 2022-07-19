@@ -10,9 +10,10 @@ interface IProps {
 	onChange: any;
 	label?: string;
 	errors?: any;
+	required?: boolean;
 }
 
-const CustomInput: FC<IProps> = ({ type, placeholder, styles, value, name, onChange, label, errors }) => (
+const CustomInput: FC<IProps> = ({ type, placeholder, required, styles, value, name, onChange, label, errors }) => (
 	<div className={defaultStyles.input_container}>
 		{label && <label className={defaultStyles.label}>{label}</label>}
 		<input

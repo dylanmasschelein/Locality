@@ -2,37 +2,43 @@ import { useContext, SyntheticEvent } from 'react';
 import AuthContext from '../context/AuthContext';
 
 // Components
-import Form from '../components/ComponentLibrary/CustomForm';
-import CustomInput from '../components/ComponentLibrary/CustomInput';
-import PrimaryButton from '../components/ComponentLibrary/Buttons/PrimaryButton';
-import { useForm } from '../utils/useForm';
+import Form from '../components/componentLibrary/CustomForm';
+import CustomInput from '../components/componentLibrary/CustomInput';
+import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
+import { useForm } from '../utils/hooks/useForm';
 import { IFormEvent } from '../type/form';
 
-interface IForm {
+export interface ISPRegisterForm {
 	firstName: string;
 	lastName: string;
 	city: string;
+	businessName: string;
+	businessType: string;
 	email: string;
 	password: string;
 	confirmPassword: string;
 }
 
-const LoginPage = () => {
-	const { loginUser } = useContext(AuthContext); // Takes a username and password
+const ServiceProviderRegistrationPage = () => {
+	// Register Service Provdier, should hit a different route
+	const { registerUser } = useContext(AuthContext);
 
-	const initialFormState: IForm = {
+	const initialFormState: ISPRegisterForm = {
 		firstName: '',
 		lastName: '',
 		city: '',
+		businessName: '',
+		businessType: '',
 		email: '',
 		password: '',
 		confirmPassword: ''
 	};
 
-	const { errors, formData, handleInputChange, handleSubmit } = useForm(loginUser, initialFormState);
+	const { errors, formData, handleInputChange, handleSubmit } = useForm(registerUser, initialFormState);
 
 	return (
 		<section>
+			<h1>Service Provider Registration</h1>
 			<Form onSubmit={handleSubmit}>
 				<CustomInput
 					type="text"
@@ -41,6 +47,7 @@ const LoginPage = () => {
 					value={formData.firstName}
 					onChange={handleInputChange}
 					errors={errors}
+					required
 				/>
 				<CustomInput
 					type="text"
@@ -49,12 +56,31 @@ const LoginPage = () => {
 					value={formData.lastName}
 					onChange={handleInputChange}
 					errors={errors}
+					required
 				/>
 				<CustomInput
 					type="text"
 					label="City"
 					name="city"
 					value={formData.city}
+					onChange={handleInputChange}
+					errors={errors}
+					required
+				/>
+				<CustomInput
+					type="text"
+					label="Business Name"
+					name="businessName"
+					value={formData.businessName}
+					onChange={handleInputChange}
+					errors={errors}
+				/>
+				{/* Make into a dropdown */}
+				<CustomInput
+					type="text"
+					label="Business Type"
+					name="businessType"
+					value={formData.buisnessType}
 					onChange={handleInputChange}
 					errors={errors}
 				/>
@@ -65,6 +91,7 @@ const LoginPage = () => {
 					value={formData.email}
 					onChange={handleInputChange}
 					errors={errors}
+					required
 				/>
 				<CustomInput
 					type="password"
@@ -73,6 +100,7 @@ const LoginPage = () => {
 					value={formData.password}
 					onChange={handleInputChange}
 					errors={errors}
+					required
 				/>
 				<CustomInput
 					type="password"
@@ -81,11 +109,12 @@ const LoginPage = () => {
 					value={formData.confirmPassword}
 					onChange={handleInputChange}
 					errors={errors}
+					required
 				/>
-				<PrimaryButton type="submit" text="Submit" />
+				<PrimaryButton type="submit" text="Register" />
 			</Form>
 		</section>
 	);
 };
 
-export default LoginPage;
+export default ServiceProviderRegistrationPage;

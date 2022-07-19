@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from 'react';
 import { omit } from 'lodash';
-import { IFormEvent, IValue } from '../type/form';
+import { IFormEvent, IValue } from '../../type/form';
 
 export const useForm = (onSubmit: any, initialState: any = {}) => {
 	// Add validation??
