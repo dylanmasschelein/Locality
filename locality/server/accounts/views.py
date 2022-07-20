@@ -1,61 +1,47 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
-from accounts.serializer import MyTokenObtainPairSerializer, RegisterSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics
-from accounts.models import User, Customer, ServiceProvider, Business
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from accounts.serializer import UserProfileSerializer
+from accounts.models import UserProfile
+from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.decorators import api_view, permission_classes
 
 
-# # Create your views here.
+# Create your views here.
+class CustomerList(APIView):
+    def get(self, request):
+        customerList = UserProfile.objects.all()
+        serializer = UserProfileSerializer.CustomerSerializer(
+            customerList, many=True)
+        return Response(serializer.data)
 
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+class CreateCustomer(APIView):
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
 
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+        return attrs
 
-class CustomerRegisterView(generics.CreateAPIView):
-    queryset = Customer.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer.CustomerSerializer
+    def post(self, request):
+        self.validate(request.data)
+        serializer = UserProfileSerializer.UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class ServiceProviderRegisterView(generics.CreateAPIView):
-    queryset = ServiceProvider.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer.ServiceProviderSerializer
-
-
-class BusinessSerializer(generics.CreateAPIView):
-    queryset = Business.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer.BusinessSerializer
-
-
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        '/account/token/',
-        '/account/register/',
-        '/account/token/refresh/'
-    ]
-    return Response(routes)
-
-
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def testEndPoint(request):
-    if request.method == 'GET':
-        data = f"Congratulation {request.user}, your API just responded to GET request"
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    elif request.method == 'POST':
-        text = request.POST.get('text')
-        data = f'Congratulation your API just responded to POST request with text: {text}'
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    return Response({}, status.HTTP_400_BAD_REQUEST)
+# @receiver(post_save, sender=User)
+# def create_customer_profile(sender, instance, created, **kwargs):
+#     if created and sender.is_customer:
+#         CustomerProfile.objects.create(
+#             user=instance, first_name=instance.first_name, last_name=instance.last_name)
+#     if created and sender.is_sp:
+#         # Business.objects.create(user=instance)
+#         ServiceProviderProfile.objects.create(
+#             user=instance, first_name=instance.first_name, last_name=instance.last_name)

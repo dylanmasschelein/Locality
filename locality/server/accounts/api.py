@@ -1,11 +1,22 @@
-from accounts.models import User, Customer, Business, ServiceProvider
-from rest_framework import viewsets, permissions
-from .serializers import RegisterSerializer
+from rest_framework import generics
+from accounts.serializer import MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from accounts.models import UserProfile, Business
+from .serializer import UserProfileSerializer, BusinessSerializer
+from rest_framework.permissions import AllowAny
 
-# Bookings Viewset
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
-class CustomerRegisterViewSet(viewsets.ModelViewSet):
-    queryset = Bookings.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = BookingsSerializer
+class UserRegisterView(generics.CreateAPIView):
+    queryset = UserProfile.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UserProfileSerializer
+
+
+class BusinessSerializer(generics.CreateAPIView):
+    queryset = Business.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = BusinessSerializer
