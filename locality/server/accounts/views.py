@@ -11,7 +11,7 @@ from rest_framework import status
 class CustomerList(APIView):
     def get(self, request):
         customerList = UserProfile.objects.all()
-        serializer = UserProfileSerializer.CustomerSerializer(
+        serializer = UserProfileSerializer(
             customerList, many=True)
         return Response(serializer.data)
 
@@ -29,7 +29,7 @@ class CreateCustomer(APIView):
 
     def post(self, request):
         self.validate(request.data)
-        serializer = UserProfileSerializer.UserSerializer(data=request.data)
+        serializer = UserProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

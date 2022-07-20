@@ -18,7 +18,8 @@ class UserProfile(AbstractUser):
 
 
 class Business(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, blank=True, null=True)
     business_name = models.CharField(max_length=100)
     legal_name = models.CharField(max_length=100)
     business_license_number = models.IntegerField()
