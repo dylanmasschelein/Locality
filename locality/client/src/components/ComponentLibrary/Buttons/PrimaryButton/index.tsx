@@ -11,6 +11,7 @@ interface IProps {
 	iconLoading?: boolean;
 	image?: string;
 	disabled?: boolean | string | any;
+	topMargin?: boolean;
 }
 
 const PrimaryButton: FC<IProps> = ({
@@ -21,12 +22,15 @@ const PrimaryButton: FC<IProps> = ({
 	image,
 	disabled,
 	type = 'button',
-	iconLoading
+	iconLoading,
+	topMargin
 }) => (
 	<button
 		type={type}
 		onClick={handleClick}
-		className={`${defaultStyles.base} ${styles} ${disabled && defaultStyles.disabled}`}
+		className={`${defaultStyles.base} ${styles} ${disabled && defaultStyles.disabled} ${
+			topMargin && defaultStyles.margin_top
+		}`}
 		disabled={disabled}
 	>
 		<span style={image ? { marginRight: 12 } : {}}>{`${text} `}</span>

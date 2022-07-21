@@ -13,8 +13,8 @@
 	border: 1px solid #9a9a9a3d;
 
 	&:focus-visible {
-		outline: $local-green;
-		border: 2px $local-green solid;
+		outline: $primary-color;
+		border: 2px $primary-color solid;
 	}
 }
 

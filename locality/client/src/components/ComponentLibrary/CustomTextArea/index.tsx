@@ -20,6 +20,7 @@ const CustomTextArea: FC<IProps> = ({ placeholder, styles, value, name, onChange
 			value={value}
 			name={name}
 			onChange={onChange}
+			style={{ maxWidth: '100%' }}
 		/>
 		{errors?.[name] && <p className={defaultStyles.input_error}>{errors[name]}</p>}
 	</div>

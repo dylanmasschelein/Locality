@@ -1,26 +1,22 @@
+import axios from 'axios';
 import { IBusinessForm } from '../../components/spDashboardComponents/BusinessForm';
 
 export const postBusiness = async (formData: IBusinessForm): Promise<any> => {
 	// no any
 	// convert to axios as well
-	const res = await fetch('http://localhost:8000/business/create-business', {
-		method: 'POST',
-		body: JSON.stringify(formData)
+	const business = await axios.post('http://localhost:8000/accounts/business/', formData, {
+		headers: { 'Content-Type': 'application/json' }
 	});
 
-	const business = await res.json();
-
 	// might eb business.data - or will be with axios i believe
-	return business;
+	return business.data;
 };
 
-export const getBusiness = async (pk: string): Promise<any> => {
+export const getBusinessList = async (): Promise<any> => {
 	// no any
 	// convert to axios as well
-	const res = await fetch(`http://localhost:8000/business/${pk}`);
-
-	const business = await res.json();
+	const businessList = await axios.get(`http://localhost:8000/accounts/businesses/`);
 
 	// might eb business.data - or will be with axios i believe
-	return business;
+	return businessList.data;
 };

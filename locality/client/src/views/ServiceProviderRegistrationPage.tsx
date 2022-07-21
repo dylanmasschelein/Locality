@@ -6,7 +6,7 @@ import Form from '../components/componentLibrary/CustomForm';
 import CustomInput from '../components/componentLibrary/CustomInput';
 import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
 import { useForm } from '../utils/hooks/useForm';
-import { IFormEvent } from '../type/form';
+import { IFormEvent } from '../types/form';
 
 export interface ISPRegisterForm {
 	firstName: string;

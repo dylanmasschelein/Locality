@@ -16,8 +16,8 @@ const Navbar = () => {
 						</>
 					) : (
 						<>
-							<Link to="/customer-register">Customer Register</Link>
-							<Link to="/service-provider-register">Service Provider Register</Link>
+							<Link to="/register?customer=true">Customer Register</Link>
+							<Link to="/register?sp=true">Service Provider Register</Link>
 							<Link to="/login">login</Link>
 						</>
 					)}

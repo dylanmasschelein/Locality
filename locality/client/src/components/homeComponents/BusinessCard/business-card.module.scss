@@ -1,0 +1,20 @@
+@use '../../../partials/variables' as *;
+@use '../../../partials/mixins' as *;
+
+.business {
+	@include flex-center;
+	flex-direction: column;
+	padding: 30px 0;
+	&__photo {
+		border-radius: 10px;
+	}
+
+	&__info {
+		padding: 5px 0;
+		align-self: flex-start;
+
+		& h3 {
+			margin: 0;
+		}
+	}
+}

@@ -23,7 +23,7 @@ interface ICustomerModal {
 const CustomerModal: FC<ICustomerModal> = ({ children, open, close, styles, size, hideLogo, showClose }) => {
 	return (
 		<div className={`${baseStyles.modal_container} ${styles}`}>
-			<Modal open={open} size={size || 'large'} onClose={close} className={`${baseStyles.modal}`}>
+			<Modal open={open} size={size || 'large'} dimmer onClose={close} className={`${baseStyles.modal}`}>
 				<Modal.Content className={baseStyles.modal_content}>
 					{/* {!hideLogo && (
 						<Image

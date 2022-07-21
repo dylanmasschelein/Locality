@@ -34,7 +34,7 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 			setAuthTokens(userToken);
 			setUser(jwt_decode(userToken.data.access));
 			localStorage.setItem('authTokens', JSON.stringify(userToken.data.access));
-			navigate('/');
+			navigate('/', { replace: true });
 		} else {
 			alert('Something went wrong!');
 		}
@@ -53,8 +53,8 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 		const userData = await response.json();
 		if (response.status === 200) {
-			const navigateLink = userData.is_customer ? '/' : '/dashboard?business=true';
-			navigate(navigateLink);
+			const navigateLink = userData.is_customer ? '/' : '/dashboard?business';
+			navigate(navigateLink, { replace: true });
 		} else {
 			alert('Something went wrong!');
 		}
@@ -64,7 +64,7 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 		setAuthTokens(null);
 		setUser(null);
 		localStorage.removeItem('authTokens');
-		navigate('/');
+		navigate('/', { replace: true });
 	};
 
 	const contextData = {

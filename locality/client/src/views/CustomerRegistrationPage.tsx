@@ -1,4 +1,4 @@
-import { useContext, SyntheticEvent } from 'react';
+import { useContext, SyntheticEvent, useMemo, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 
 // Components
@@ -6,7 +6,8 @@ import Form from '../components/componentLibrary/CustomForm';
 import CustomInput from '../components/componentLibrary/CustomInput';
 import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
 import { useForm } from '../utils/hooks/useForm';
-import { IFormEvent } from '../type/form';
+import { IFormEvent } from '../types/form';
+import { useQuery } from '../utils/hooks/useQuery';
 
 export interface ICustomerRegisterForm {
 	first_name: string;
@@ -22,8 +23,9 @@ export interface ICustomerRegisterForm {
 }
 
 const CustomerRegistrationPage = () => {
-	const { registerUser } = useContext(AuthContext); // Takes a username and password
-
+	const { registerUser } = useContext(AuthContext);
+	const { query }: any = useQuery();
+	console.log(query);
 	const initialFormState: ICustomerRegisterForm = {
 		first_name: '',
 		last_name: '',
@@ -31,8 +33,8 @@ const CustomerRegistrationPage = () => {
 		email: '',
 		password: '',
 		password2: '',
-		is_customer: true,
-		is_sp: false,
+		is_customer: query?.customer === 'true' && true,
+		is_sp: query?.sp === 'true' && true,
 		is_admin: false,
 		username: ''
 	};
@@ -99,7 +101,7 @@ const CustomerRegistrationPage = () => {
 					onChange={handleInputChange}
 					errors={errors}
 				/>
-				<PrimaryButton type="submit" text="Register" />
+				<PrimaryButton type="submit" text="Register" topMargin />
 			</Form>
 		</section>
 	);

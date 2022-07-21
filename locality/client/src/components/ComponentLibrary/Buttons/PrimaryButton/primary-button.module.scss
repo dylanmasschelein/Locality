@@ -10,7 +10,7 @@
 	border-radius: 5px;
 	transition: 0.3s;
 	cursor: pointer;
-	background: $local-green;
+	background: $primary-color;
 	color: white;
 	font-weight: 700;
 	letter-spacing: 0.5px;
@@ -29,4 +29,8 @@
 }
 .disabled:hover {
 	transform: none;
+}
+
+.margin_top {
+	margin-top: 20px;
 }

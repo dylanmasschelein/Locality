@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from 'react';
 import { omit } from 'lodash';
-import { IFormEvent, IValue } from '../../type/form';
+import { IFormEvent, IValue } from '../../types/form';
 
 export const useForm = (onSubmit: any, initialState: any = {}) => {
 	// Add validation??
@@ -87,7 +87,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		// 	console.log(formData[key]);
 		// 	validate(e, key, formData[key]);
 		// });
-
+		console.log(formData)
 		// validate(e, e.target.name, e.target.value);
 		if (Object.keys(errors).length === 0 && Object.keys(formData).length !== 0) {
 			onSubmit?.(formData);

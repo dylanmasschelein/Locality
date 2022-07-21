@@ -4,6 +4,7 @@ import { useForm } from '../../utils/hooks/useForm';
 // Components
 import Form from '../../components/componentLibrary/CustomForm';
 import CustomInput from '../../components/componentLibrary/CustomInput';
+import CustomTextArea from '../componentLibrary/CustomTextArea';
 import PrimaryButton from '../../components/componentLibrary/Buttons/PrimaryButton';
 
 export interface IBusinessForm {
@@ -11,32 +12,51 @@ export interface IBusinessForm {
 	legal_name: string;
 	business_number: string;
 	business_type: string;
+	description: string;
+	location: string;
 }
 
 interface IProps {
 	postBusinessData: (f: IBusinessForm) => Promise<void>;
 }
 
-const CustomerRegistrationPage: FC<IProps> = ({ postBusinessData }) => {
+const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 	// Get User
 	const initialFormState: IBusinessForm = {
 		business_name: '',
 		legal_name: '',
 		business_number: '',
-		business_type: ''
+		business_type: '',
+		description: '',
+		location: ''
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(postBusinessData, initialFormState);
 
 	return (
 		<section>
-			<h1>Customer Registration</h1>
+			<h1>Business Registration</h1>
 			<Form onSubmit={handleSubmit}>
 				<CustomInput
 					type="text"
 					label="Business Name"
 					name="business_name"
 					value={formData.business_name}
+					onChange={handleInputChange}
+					errors={errors}
+				/>
+				<CustomTextArea
+					label="Description"
+					name="description"
+					value={formData.description}
+					onChange={handleInputChange}
+					errors={errors}
+				/>
+				<CustomInput
+					type="text"
+					label="City"
+					name="location"
+					value={formData.location}
 					onChange={handleInputChange}
 					errors={errors}
 				/>
@@ -65,10 +85,10 @@ const CustomerRegistrationPage: FC<IProps> = ({ postBusinessData }) => {
 					onChange={handleInputChange}
 					errors={errors}
 				/>
-				<PrimaryButton type="submit" text="Register Business" />
+				<PrimaryButton type="submit" text="Register Business" topMargin />
 			</Form>
 		</section>
 	);
 };
 
-export default CustomerRegistrationPage;
+export default BusinessForm;
