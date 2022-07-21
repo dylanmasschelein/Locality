@@ -23,7 +23,6 @@ function Register() {
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(loginUser, initFormState);
-
 	return (
 		<section>
 			<h1>Login</h1>

@@ -6,6 +6,7 @@ import Home from './views/HomePage';
 import CustomerRegistrationPage from './views/CustomerRegistrationPage';
 import ServiceProviderRegistrationPage from './views/ServiceProviderRegistrationPage';
 import LoginPage from './views/LoginPage';
+import SpDashboard from './views/SpDashboard';
 
 const App = () => (
 	<Router>
@@ -15,6 +16,7 @@ const App = () => (
 				<Route element={<CustomerRegistrationPage />} path="/customer-register" />
 				<Route element={<ServiceProviderRegistrationPage />} path="/service-provider-register" />
 				<Route element={<LoginPage />} path="/login" />
+				<Route element={<SpDashboard />} path="/dashboard" />
 				<Route element={<Home />} path="/" />
 			</Routes>
 		</AuthProvider>

@@ -3,11 +3,13 @@ from . import views
 from accounts.api import MyTokenObtainPairView
 
 from rest_framework_simplejwt.views import (
-    TokenRefreshView,
+    TokenRefreshView, TokenObtainPairView
 )
+
 
 urlpatterns = [
     path('customer/', views.CreateCustomer.as_view(), name='create_user'),
-    path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('customer/list', views.CustomerList.as_view(), name='get_users'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

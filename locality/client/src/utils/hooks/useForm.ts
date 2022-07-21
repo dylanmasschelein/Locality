@@ -16,7 +16,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 
 	const validate = (event: SyntheticEvent, name: string, value: IValue, password: string = '') => {
 		switch (name) {
-			case 'firstName':
+			case 'first_name':
 				if (value.length <= 1) {
 					updateErrors(name, 'First name must be a minimum of 2 letters');
 				} else {
@@ -24,7 +24,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 					setErrors(newObj);
 				}
 				break;
-			case 'lastName':
+			case 'last_name':
 				if (value.length <= 1) {
 					updateErrors(name, 'Last name must be a minimum of 2 letters');
 				} else {
@@ -44,7 +44,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 					setErrors(newObj);
 				}
 				break;
-			case 'phoneNumber':
+			case 'phone_number':
 				if (value.length < 10) {
 					updateErrors(name, 'Enter a valid phone number');
 				} else {
@@ -56,15 +56,15 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 				if (value.length < 8) {
 					updateErrors(name, 'Password must be minimum 8 characters');
 				} else {
-					const newObj = omit(errors, 'passowrd');
+					const newObj = omit(errors, 'password');
 					setErrors(newObj);
 				}
 				break;
-			case 'confirmPassword':
+			case 'password2':
 				if (value !== password) {
 					updateErrors(name, 'Passwords must match');
 				} else {
-					const newObj = omit(errors, 'confirmPassword');
+					const newObj = omit(errors, 'password2');
 					setErrors(newObj);
 				}
 				break;
@@ -75,7 +75,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 	};
 
 	const handleInputChange = (e: IFormEvent) => {
-		validate(e, e.target.name, e.target.value);
+		// validate(e, e.target.name, e.target.value);
 
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};

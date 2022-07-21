@@ -9,24 +9,32 @@ import { useForm } from '../utils/hooks/useForm';
 import { IFormEvent } from '../type/form';
 
 export interface ICustomerRegisterForm {
-	firstName: string;
-	lastName: string;
+	first_name: string;
+	last_name: string;
 	city: string;
 	email: string;
 	password: string;
-	confirmPassword: string;
+	password2: string;
+	is_customer: boolean;
+	is_sp: boolean;
+	is_admin: boolean;
+	username: string;
 }
 
 const CustomerRegistrationPage = () => {
 	const { registerUser } = useContext(AuthContext); // Takes a username and password
 
 	const initialFormState: ICustomerRegisterForm = {
-		firstName: '',
-		lastName: '',
+		first_name: '',
+		last_name: '',
 		city: '',
 		email: '',
 		password: '',
-		confirmPassword: ''
+		password2: '',
+		is_customer: true,
+		is_sp: false,
+		is_admin: false,
+		username: ''
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(registerUser, initialFormState);
@@ -37,17 +45,25 @@ const CustomerRegistrationPage = () => {
 			<Form onSubmit={handleSubmit}>
 				<CustomInput
 					type="text"
+					label="Username"
+					name="username"
+					value={formData.username}
+					onChange={handleInputChange}
+					errors={errors}
+				/>
+				<CustomInput
+					type="text"
 					label="First Name"
-					name="firstName"
-					value={formData.firstName}
+					name="first_name"
+					value={formData.first_name}
 					onChange={handleInputChange}
 					errors={errors}
 				/>
 				<CustomInput
 					type="text"
 					label="Last Name"
-					name="lastName"
-					value={formData.lastName}
+					name="last_name"
+					value={formData.last_name}
 					onChange={handleInputChange}
 					errors={errors}
 				/>
@@ -78,8 +94,8 @@ const CustomerRegistrationPage = () => {
 				<CustomInput
 					type="password"
 					label="Confirm Password"
-					name="confirmPassword"
-					value={formData.confirmPassword}
+					name="password2"
+					value={formData.password2}
 					onChange={handleInputChange}
 					errors={errors}
 				/>

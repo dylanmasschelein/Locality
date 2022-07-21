@@ -9,12 +9,16 @@ class UserProfile(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=200)
     password2 = models.CharField(max_length=200)
+    city = models.CharField(max_length=200, blank=True, null=True)
     is_customer = models.BooleanField(default=False)
     is_sp = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return self.first_name
 
 
 class Business(models.Model):

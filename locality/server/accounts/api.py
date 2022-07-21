@@ -7,6 +7,8 @@ from rest_framework.permissions import AllowAny
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
+    queryset = UserProfile.objects.all()
+    permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
 

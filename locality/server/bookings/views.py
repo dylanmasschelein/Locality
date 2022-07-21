@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from bookings.models import Bookings
 from bookings.serializers import BookingsSerializer
+from rest_framework import status
 
 
 class BookingList(APIView):

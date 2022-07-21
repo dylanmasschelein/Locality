@@ -4,6 +4,7 @@ import { useNavigate, NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
 import { ICustomerRegisterForm } from '../views/CustomerRegistrationPage';
 import { ISPRegisterForm } from '../views/ServiceProviderRegistrationPage';
+import { convertDataToFormData } from '../utils/global_functions';
 
 const AuthContext = createContext<any>(null); // Type the context?? - DS
 type RegisterForms = ICustomerRegisterForm | ISPRegisterForm;
@@ -17,29 +18,23 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 	const [authTokens, setAuthTokens] = useState(initToken ? JSON.parse(initToken) : null);
 	const [user, setUser] = useState(initToken ? jwt_decode(initToken) : null);
 	const [loading, setLoading] = useState(true);
-
+	console.log(user, 'USER!');
 	// NavigateFunction type
 	const navigate: any = useNavigate();
 
-	const loginUser = async (email: string, password: string) => {
-		// Swap to axios
-		const response = await fetch('http://127.0.0.1:8000/api/token/', {
-			method: 'POST',
+	const loginUser = async (formData: any) => {
+		console.log(formData);
+		const userToken = await axios.post('http://localhost:8000/accounts/token/', formData, {
 			headers: {
 				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				email,
-				password
-			})
+			}
 		});
-		const data = await response.json();
 
-		if (response.status === 200) {
-			setAuthTokens(data);
-			setUser(jwt_decode(data.access));
-			localStorage.setItem('authTokens', JSON.stringify(data));
-			navigate.push('/');
+		if (userToken.status === 200) {
+			setAuthTokens(userToken);
+			setUser(jwt_decode(userToken.data.access));
+			localStorage.setItem('authTokens', JSON.stringify(userToken.data.access));
+			navigate('/');
 		} else {
 			alert('Something went wrong!');
 		}
@@ -47,15 +42,19 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 	// Customize this function to work for customers and service providers
 	const registerUser = async (formData: RegisterForms) => {
-		const response = await fetch('http://127.0.0.1:8000/api/register/', {
+		console.log(formData);
+		const response = await fetch('http://127.0.0.1:8000/accounts/customer/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(formData)
 		});
-		if (response.status === 201) {
-			navigate.push('/login');
+
+		const userData = await response.json();
+		if (response.status === 200) {
+			const navigateLink = userData.is_customer ? '/' : '/dashboard?business=true';
+			navigate(navigateLink);
 		} else {
 			alert('Something went wrong!');
 		}
@@ -65,7 +64,7 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 		setAuthTokens(null);
 		setUser(null);
 		localStorage.removeItem('authTokens');
-		navigate.push('/');
+		navigate('/');
 	};
 
 	const contextData = {
@@ -80,7 +79,8 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 	useEffect(() => {
 		if (authTokens) {
-			setUser(jwt_decode(authTokens.access));
+			console.log(authTokens);
+			setUser(jwt_decode(authTokens));
 		}
 		setLoading(false);
 	}, [authTokens, loading]);
