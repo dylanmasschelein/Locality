@@ -26,5 +26,7 @@ class Business(models.Model):
         UserProfile, on_delete=models.CASCADE, blank=True, null=True)
     business_name = models.CharField(max_length=100)
     legal_name = models.CharField(max_length=100)
-    business_license_number = models.IntegerField()
+    business_number = models.CharField(max_length=100, blank=True, null=True)
     business_type = models.CharField(max_length=50)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)

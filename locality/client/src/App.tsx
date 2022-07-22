@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Home from './views/HomePage';
@@ -6,7 +7,7 @@ import CustomerRegistrationPage from './views/CustomerRegistrationPage';
 import LoginPage from './views/LoginPage';
 import SpDashboard from './views/SpDashboard';
 import BottomNav from './components/componentLibrary/Navigation/BottomNav';
-import CustomSearchField from './components/componentLibrary/SearchField';
+import CustomSearchField from './components/componentLibrary/CustomSearchField';
 
 const App = () => (
 	<Router>

@@ -12,4 +12,6 @@ urlpatterns = [
     path('customer/list', views.CustomerList.as_view(), name='get_users'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('business/', views.CreateBusiness.as_view(), name='create_business'),
+    path('businesses/', views.BusinessList.as_view(), name='get_business'),
 ]

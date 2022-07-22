@@ -6,6 +6,9 @@ import Form from '../../components/componentLibrary/CustomForm';
 import CustomInput from '../../components/componentLibrary/CustomInput';
 import CustomTextArea from '../componentLibrary/CustomTextArea';
 import PrimaryButton from '../../components/componentLibrary/Buttons/PrimaryButton';
+import { SelectChangeEvent } from '@mui/material';
+import CustomDropdown from '../componentLibrary/CustomDopdown';
+import { businessTypeOptions, cityOptions } from '../../utils/global_vars';
 
 export interface IBusinessForm {
 	business_name: string;
@@ -52,13 +55,12 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					onChange={handleInputChange}
 					errors={errors}
 				/>
-				<CustomInput
-					type="text"
+				<CustomDropdown
 					label="City"
-					name="location"
+					name="city"
 					value={formData.location}
 					onChange={handleInputChange}
-					errors={errors}
+					options={cityOptions}
 				/>
 				<CustomInput
 					type="text"
@@ -76,14 +78,12 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					onChange={handleInputChange}
 					errors={errors}
 				/>
-				{/* Make into dropdown */}
-				<CustomInput
-					type="text"
+				<CustomDropdown
 					label="Business Type"
 					name="business_type"
 					value={formData.business_type}
 					onChange={handleInputChange}
-					errors={errors}
+					options={businessTypeOptions}
 				/>
 				<PrimaryButton type="submit" text="Register Business" topMargin />
 			</Form>

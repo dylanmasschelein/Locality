@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from accounts.serializer import UserProfileSerializer
-from accounts.models import UserProfile
+from accounts.serializer import UserProfileSerializer, BusinessSerializer
+from accounts.models import UserProfile, Business
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
@@ -19,6 +19,23 @@ class CustomerList(APIView):
             customerList, many=True)
         return Response(serializer.data)
 
+
+class CreateBusiness(APIView):
+    def post(self, request):
+     # self.validate(request.data)
+        serializer = BusinessSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BusinessList(APIView):
+    def get(self, request):
+        business_list = Business.objects.all()
+        serializer = BusinessSerializer(business_list, many=True)
+        return Response(serializer.data)
 
 # class
 # @api_view(['POST'])
@@ -45,7 +62,7 @@ class CreateCustomer(APIView):
         return attrs
 
     def post(self, request):
-      # self.validate(request.data)
+     # self.validate(request.data)
         serializer = UserProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

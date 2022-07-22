@@ -2,32 +2,51 @@ import { getBusinessList } from '../api/business';
 import { useEffect, useState, useCallback } from 'react';
 import BusinessCard from '../components/homeComponents/BusinessCard';
 import { IBusiness } from '../types/business';
+import { useUserInput, useSearch } from '../utils/hooks/useSearch';
 import styles from '../components/homeComponents/BusinessCard/business-card.module.scss';
-import CustomSearchField from '../components/componentLibrary/SearchField';
+import ScrollableIcons from '../components/componentLibrary/ScrollableIcons';
+import CustomSearchField from '../components/componentLibrary/CustomSearchField';
 
 const Home = () => {
-	const [businessList, setBusinessList] = useState<any>([]); // busines type
+	const [businessList, setBusinessList] = useState<IBusiness[]>([]);
+	const [filteredBusinessList, setFilteredBusinessList] = useState<IBusiness[]>([]);
+	const [value, setValue] = useState('explore');
+	// const searchText = useUserInput('');
+
+	// Will need a scalable solution
 	const fetchBusinessList = useCallback(async () => {
 		const list = await getBusinessList();
 		setBusinessList(list);
+		setFilteredBusinessList(list);
+		return;
 	}, []);
 
 	useEffect(() => {
 		fetchBusinessList();
 	}, []);
 
-	const handleSearch = () => {
+	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+		if (newValue === 'explore') {
+			setFilteredBusinessList(businessList);
+		} else {
+			const filteredList = businessList.filter(business => business.business_type === newValue);
+			setFilteredBusinessList(filteredList);
+			setValue(newValue);
+		}
+	};
 
-	}
+	// const handleSearch = e => {
+	// 	const search = useSearch(businessList, e.target.value);
+	// };
 
+	// const searchBusinesses = useSearch(businessList, searchText.value, l => [l.business_type]);
 	return (
 		<div>
-			{/* <CustomSearchField /> */}
-
-			<h1>You are on home page!</h1>
+			{/* <CustomSearchField onChange={searchText.onChange} value={searchText.value} /> */}
+			<ScrollableIcons value={value} handleChange={handleChange} />
 			<div className={styles.business}>
-				{businessList.map((business: IBusiness) => (
-					<BusinessCard business={business} />
+				{filteredBusinessList.map((business: IBusiness) => (
+					<BusinessCard key={business.id} business={business} />
 				))}
 				{/* Business Profile and allow for swipe up to get the list back */}
 				{/* This means ill have to create a swipeable drawer, similar to the one in ModelReno actually */}
