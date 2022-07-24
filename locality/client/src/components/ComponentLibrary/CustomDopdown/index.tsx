@@ -12,13 +12,13 @@ interface IProps {
 	label: string;
 	name: string;
 	options: string[];
+	styling?: string;
 }
 
-const CustomDropdown: FC<IProps> = ({ onChange, value, label, name, options }) => (
-	<div className={styles.input_container}>
+const CustomDropdown: FC<IProps> = ({ onChange, value, label, name, options, styling }) => (
+	<div className={`${styles.input_container} ${styling}`}>
 		{label && <label className={styles.label}>{label}</label>}
 		<FormControl fullWidth>
-			{/* <InputLabel id="demo-simple-select-label">{`Select ${label}`}</InputLabel> */}
 			<Select
 				labelId="demo-simple-select-label"
 				id="demo-simple-select"

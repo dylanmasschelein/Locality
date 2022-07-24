@@ -31,8 +31,8 @@ const Home = () => {
 		} else {
 			const filteredList = businessList.filter(business => business.business_type === newValue);
 			setFilteredBusinessList(filteredList);
-			setValue(newValue);
 		}
+		setValue(newValue);
 	};
 
 	// const handleSearch = e => {

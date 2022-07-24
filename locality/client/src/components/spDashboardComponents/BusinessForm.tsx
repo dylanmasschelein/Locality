@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useForm } from '../../utils/hooks/useForm';
+import styles from '../componentLibrary/CustomInput/input.module.scss';
 
 // Components
 import Form from '../../components/componentLibrary/CustomForm';
@@ -35,7 +36,7 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(postBusinessData, initialFormState);
-
+	console.log(formData.location);
 	return (
 		<section>
 			<h1>Business Registration</h1>
@@ -57,10 +58,11 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 				/>
 				<CustomDropdown
 					label="City"
-					name="city"
+					name="location"
 					value={formData.location}
 					onChange={handleInputChange}
 					options={cityOptions}
+					styling={styles.align_left}
 				/>
 				<CustomInput
 					type="text"
@@ -84,6 +86,7 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					value={formData.business_type}
 					onChange={handleInputChange}
 					options={businessTypeOptions}
+					styling={styles.align_left}
 				/>
 				<PrimaryButton type="submit" text="Register Business" topMargin />
 			</Form>
