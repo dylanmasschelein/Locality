@@ -18,7 +18,6 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 	const [authTokens, setAuthTokens] = useState(initToken ? JSON.parse(initToken) : null);
 	const [user, setUser] = useState(initToken ? jwt_decode(initToken) : null);
 	const [loading, setLoading] = useState(true);
-	console.log(user, 'USER!');
 	// NavigateFunction type
 	const navigate: any = useNavigate();
 
@@ -42,7 +41,6 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 	// Customize this function to work for customers and service providers
 	const registerUser = async (formData: RegisterForms) => {
-		console.log(formData);
 		const response = await fetch('http://127.0.0.1:8000/accounts/customer/', {
 			method: 'POST',
 			headers: {

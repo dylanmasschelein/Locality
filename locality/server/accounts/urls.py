@@ -14,4 +14,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('business/', views.CreateBusiness.as_view(), name='create_business'),
     path('businesses/', views.BusinessList.as_view(), name='get_business'),
+    path('businesses/', views.BusinessList.as_view(), name='get_business'),
+    path('business_image/', views.BusinessImageDetails.as_view(),
+         name='business_image'),
 ]

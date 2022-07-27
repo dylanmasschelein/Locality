@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '../utils/hooks/useQuery';
 import AuthContext from '../context/AuthContext';
 import { Modal } from 'semantic-ui-react';
+import ImageUpload from '../components/spDashboardComponents/ImageUpload';
 
 // import styles from '../'
 
@@ -52,6 +53,7 @@ const SpDashboard: FC<IProps> = () => {
 				<BusinessForm postBusinessData={postBusinessData} />
 			</CustomModal>
 			<h1>Welcome to your Profile!</h1>
+			<ImageUpload />
 		</div>
 	);
 };

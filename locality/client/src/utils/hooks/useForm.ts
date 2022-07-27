@@ -74,10 +74,15 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		}
 	};
 
-	const handleInputChange = (e: IFormEvent) => {
+	const handleInputChange = (e: IFormEvent, file: any = null) => {
 		// validate(e, e.target.name, e.target.value);
-
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		console.log(file);
+		// console.log(e.target.files[0]);
+		if (file) {
+			setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+		} else {
+			setFormData({ ...formData, [e.target.name]: e.target.value });
+		}
 	};
 
 	const handleSubmit = (e: SyntheticEvent) => {
@@ -87,7 +92,6 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		// 	console.log(formData[key]);
 		// 	validate(e, key, formData[key]);
 		// });
-		console.log(formData)
 		// validate(e, e.target.name, e.target.value);
 		if (Object.keys(errors).length === 0 && Object.keys(formData).length !== 0) {
 			onSubmit?.(formData);

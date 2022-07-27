@@ -1,6 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from accounts.models import UserProfile, Business
+from accounts.models import UserProfile, Business, BusinessImage
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 
@@ -59,3 +59,18 @@ class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Business
         fields = '__all__'
+
+
+class BusinessImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BusinessImage
+        fields = '__all__'
+
+    # def create(self, data):
+    #     print(data)
+    #     image = BusinessImage(
+    #         caption=data["caption"],
+    #         image=data["image"],
+    #     )
+    #     image.save()
+    #     return image
