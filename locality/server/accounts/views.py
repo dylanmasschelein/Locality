@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from accounts.serializer import UserProfileSerializer, BusinessSerializer, BusinessImageSerializer
-from accounts.models import UserProfile, Business, BusinessImage
+from accounts.serializer import UserProfileSerializer, BusinessSerializer
+from accounts.models import UserProfile, Business
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
@@ -55,21 +55,27 @@ class BusinessList(APIView):
     def get(self, request):
         business_list = Business.objects.all()
         serializer = BusinessSerializer(business_list, many=True)
+        # print(serializer.data)
         return Response(serializer.data)
 
 
-class BusinessImageDetails(APIView):
-    def get(self, request):
-        queryset = BusinessImage.objects.all()
-        serializer = BusinessImageSerializer
+# class BusinessImageDetails(APIView):
+#     def get(self, request):
+#         queryset = BusinessImage.objects.select_related('business').)
+#         serializer = BusinessImageSerializer(queryset, many=True)
+#         return Response(serializer.data)
 
-    def post(self, request):
-        caption = request.data['caption']
-        image = request.data['image']
-        business_id = request.data['business_id']
-        BusinessImage.objects.create(
-            caption=caption, image=image, business_id=business_id)
-        return Response({'message': 'Image created'})
+#     def post(self, request):
+#         caption = request.data['caption']
+#         image = request.data['image']
+#         business_id = request.data['business_id']
+#         BusinessImage.objects.create(
+#             caption=caption, image=image, business_id=business_id)
+#         return Response({'message': 'Image created'})
+
+
+# filter(business_type__iexact="music")
+# filter(business_name__contains="music")
 
     # def post(self, request, *args, **kwargs):
     #     serializer = BusinessImageSerializer(data=request.data)

@@ -20,6 +20,7 @@ export interface IBusinessData {
 	description: string;
 	location: string;
 	user?: number;
+	business_image: any;
 }
 
 interface IProps {
@@ -34,7 +35,8 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 		business_number: '',
 		business_type: '',
 		description: '',
-		location: ''
+		location: '',
+		business_image: ''
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(postBusinessData, initialFormState);
@@ -48,6 +50,14 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					name="business_name"
 					value={formData.business_name}
 					onChange={handleInputChange}
+					errors={errors}
+				/>
+				<CustomInput
+					type="file"
+					label="Image"
+					name="business_image"
+					value={''}
+					onChange={(e: any) => handleInputChange(e, true)}
 					errors={errors}
 				/>
 				<CustomTextArea

@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 def upload_path(instance, filename):
-    return '/'.join(['images', str(instance.caption), filename])
+    return '/'.join(['images', str(instance.business_name), filename])
 
 # Create your models here.
 
@@ -36,13 +36,5 @@ class Business(models.Model):
     business_type = models.CharField(max_length=50)
     description = models.CharField(max_length=255, blank=True, null=True)
     location = models.CharField(max_length=255, blank=True, null=True)
-
-
-class BusinessImage(models.Model):
-    caption = models.CharField(max_length=200)
-    image = models.ImageField(blank=True, null=True, upload_to=upload_path)
-    business = models.ForeignKey(
-        Business, on_delete=models.CASCADE, blank=True, null=True)
-
-    def __str__(self):
-        return self.caption
+    business_image = models.ImageField(
+        blank=True, null=True, upload_to=upload_path)

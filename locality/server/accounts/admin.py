@@ -1,7 +1,6 @@
 from django.contrib import admin
-from accounts.models import UserProfile, Business, BusinessImage
+from accounts.models import UserProfile, Business
 
 # Register your models here.
 admin.site.register(UserProfile),
 admin.site.register(Business),
-admin.site.register(BusinessImage),

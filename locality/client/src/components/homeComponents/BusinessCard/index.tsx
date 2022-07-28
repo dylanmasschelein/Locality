@@ -10,7 +10,7 @@ interface IProps {
 const BusinessCard: FC<IProps> = ({ business }) => (
 	<div className={styles.business}>
 		<Image
-			srcLink="https://via.placeholder.com/300x200/150"
+			srcLink={business.business_image || 'https://via.placeholder.com/300x200/150'}
 			alt="placeholder img"
 			styles={styles.business__photo}
 		/>
