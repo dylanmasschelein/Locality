@@ -25,7 +25,6 @@ export interface ICustomerRegisterForm {
 const CustomerRegistrationPage = () => {
 	const { registerUser } = useContext(AuthContext);
 	const { query }: any = useQuery();
-	console.log(query);
 	const initialFormState: ICustomerRegisterForm = {
 		first_name: '',
 		last_name: '',
@@ -34,13 +33,13 @@ const CustomerRegistrationPage = () => {
 		password: '',
 		password2: '',
 		is_customer: query?.customer === 'true' && true,
-		is_sp: query?.sp === 'true' && true,
+		is_sp: true,
 		is_admin: false,
 		username: ''
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(registerUser, initialFormState);
-
+	console.log(formData);
 	return (
 		<section>
 			<h1>Customer Registration</h1>

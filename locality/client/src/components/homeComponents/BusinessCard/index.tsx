@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IBusiness } from '../../../types/business';
+import { IBusinessData } from '../../spDashboardComponents/BusinessForm';
 import Image from '../../componentLibrary/Image';
 import styles from './business-card.module.scss';
 
 interface IProps {
-	business: IBusiness;
+	business: IBusinessData;
 }
 
 const BusinessCard: FC<IProps> = ({ business }) => (

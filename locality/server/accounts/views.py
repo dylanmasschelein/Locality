@@ -27,12 +27,28 @@ class CustomerList(APIView):
 class CreateBusiness(APIView):
     def post(self, request):
      # self.validate(request.data)
+        print(request.data)
         serializer = BusinessSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BusinessDetail(APIView):
+    def get_business_by_pk(self, pk):
+        try:
+            return Business.objects.get(pk=pk)
+        except:
+            return Response({
+                'error': "Booking does not exists",
+            }, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        business = self.get_business_by_pk(pk)
+        serializer = BusinessSerializer(business)
+        return Response(serializer.data)
 
 
 class BusinessList(APIView):
@@ -50,7 +66,9 @@ class BusinessImageDetails(APIView):
     def post(self, request):
         caption = request.data['caption']
         image = request.data['image']
-        BusinessImage.objects.create(caption=caption, image=image)
+        business_id = request.data['business_id']
+        BusinessImage.objects.create(
+            caption=caption, image=image, business_id=business_id)
         return Response({'message': 'Image created'})
 
     # def post(self, request, *args, **kwargs):

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { IBusinessForm } from '../../components/spDashboardComponents/BusinessForm';
+import { IBusinessData } from '../../components/spDashboardComponents/BusinessForm';
 
-export const postBusiness = async (formData: IBusinessForm): Promise<any> => {
+export const postBusiness = async (formData: IBusinessData): Promise<IBusinessData> => {
 	// no any
 	// convert to axios as well
 	const business = await axios.post('http://localhost:8000/accounts/business/', formData, {

@@ -11,22 +11,24 @@ import { SelectChangeEvent } from '@mui/material';
 import CustomDropdown from '../componentLibrary/CustomDopdown';
 import { businessTypeOptions, cityOptions } from '../../utils/global_vars';
 
-export interface IBusinessForm {
+export interface IBusinessData {
+	id?: string;
 	business_name: string;
 	legal_name: string;
 	business_number: string;
 	business_type: string;
 	description: string;
 	location: string;
+	user?: number;
 }
 
 interface IProps {
-	postBusinessData: (f: IBusinessForm) => Promise<void>;
+	postBusinessData: (f: IBusinessData) => Promise<void>;
 }
 
 const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 	// Get User
-	const initialFormState: IBusinessForm = {
+	const initialFormState: IBusinessData = {
 		business_name: '',
 		legal_name: '',
 		business_number: '',
@@ -36,7 +38,6 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(postBusinessData, initialFormState);
-	console.log(formData.location);
 	return (
 		<section>
 			<h1>Business Registration</h1>
@@ -60,7 +61,7 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					label="City"
 					name="location"
 					value={formData.location}
-					onChange={handleInputChange}
+					onChange={(e: any) => handleInputChange(e, false)}
 					options={cityOptions}
 					styling={styles.align_left}
 				/>
@@ -84,7 +85,7 @@ const BusinessForm: FC<IProps> = ({ postBusinessData }) => {
 					label="Business Type"
 					name="business_type"
 					value={formData.business_type}
-					onChange={handleInputChange}
+					onChange={(e: any) => handleInputChange(e, false)}
 					options={businessTypeOptions}
 					styling={styles.align_left}
 				/>

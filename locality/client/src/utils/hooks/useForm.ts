@@ -76,8 +76,8 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 
 	const handleInputChange = (e: IFormEvent, file: any = null) => {
 		// validate(e, e.target.name, e.target.value);
-		console.log(file);
-		// console.log(e.target.files[0]);
+
+		// How you getting in here?
 		if (file) {
 			setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 		} else {

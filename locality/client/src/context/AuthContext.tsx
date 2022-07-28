@@ -51,7 +51,7 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 		const userData = await response.json();
 		if (response.status === 200) {
-			const navigateLink = userData.is_customer ? '/' : '/dashboard?business';
+			const navigateLink = userData.is_customer ? '/' : `/dashboard/${userData.id}/?business`;
 			navigate(navigateLink, { replace: true });
 		} else {
 			alert('Something went wrong!');

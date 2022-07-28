@@ -1,15 +1,15 @@
 import { getBusinessList } from '../api/business';
 import { useEffect, useState, useCallback } from 'react';
 import BusinessCard from '../components/homeComponents/BusinessCard';
-import { IBusiness } from '../types/business';
+import { IBusinessData } from '../components/spDashboardComponents/BusinessForm';
 import { useUserInput, useSearch } from '../utils/hooks/useSearch';
 import styles from '../components/homeComponents/BusinessCard/business-card.module.scss';
 import ScrollableIcons from '../components/componentLibrary/ScrollableIcons';
 import CustomSearchField from '../components/componentLibrary/CustomSearchField';
 
 const Home = () => {
-	const [businessList, setBusinessList] = useState<IBusiness[]>([]);
-	const [filteredBusinessList, setFilteredBusinessList] = useState<IBusiness[]>([]);
+	const [businessList, setBusinessList] = useState<IBusinessData[]>([]);
+	const [filteredBusinessList, setFilteredBusinessList] = useState<IBusinessData[]>([]);
 	const [value, setValue] = useState('explore');
 	// const searchText = useUserInput('');
 
@@ -44,8 +44,9 @@ const Home = () => {
 		<div>
 			{/* <CustomSearchField onChange={searchText.onChange} value={searchText.value} /> */}
 			<ScrollableIcons value={value} handleChange={handleChange} />
+
 			<div className={styles.business}>
-				{filteredBusinessList.map((business: IBusiness) => (
+				{filteredBusinessList.map((business: IBusinessData) => (
 					<BusinessCard key={business.id} business={business} />
 				))}
 				{/* Business Profile and allow for swipe up to get the list back */}

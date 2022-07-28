@@ -8,15 +8,16 @@ import CustomInput from '../../componentLibrary/CustomInput';
 import styles from './image.module.scss';
 
 interface IProps {
-	// prop: string;
+	businessId: string | undefined;
 	// prop1: number;
 	// prop2: string;
 }
 
-const ImageUpload: FC<IProps> = () => {
+const ImageUpload: FC<IProps> = ({ businessId }) => {
 	const initialFormState = {
 		caption: '',
-		image: ''
+		image: '',
+		business_id: 4
 	};
 
 	const onSumbit = async (data: any) => {

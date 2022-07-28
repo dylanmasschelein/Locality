@@ -13,6 +13,8 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('business/', views.CreateBusiness.as_view(), name='create_business'),
+    path('business/<int:pk>/', views.BusinessDetail.as_view()),
+
     path('businesses/', views.BusinessList.as_view(), name='get_business'),
     path('businesses/', views.BusinessList.as_view(), name='get_business'),
     path('business_image/', views.BusinessImageDetails.as_view(),

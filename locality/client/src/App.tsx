@@ -15,7 +15,7 @@ const App = () => (
 			<Routes>
 				<Route element={<CustomerRegistrationPage />} path="/register" />
 				<Route element={<LoginPage />} path="/login" />
-				<Route element={<SpDashboard />} path="/dashboard" />
+				<Route element={<SpDashboard />} path="/dashboard/:id" />
 				<Route element={<Home />} path="/" />
 			</Routes>
 			<BottomNav />
