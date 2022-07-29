@@ -2,8 +2,8 @@ import { useContext, SyntheticEvent } from 'react';
 import AuthContext from '../context/AuthContext';
 
 // Components
-import Form from '../components/componentLibrary/CustomForm';
-import CustomInput from '../components/componentLibrary/CustomInput';
+import Form from '../components/componentLibrary/FormComponents/CustomForm';
+import CustomInput from '../components/componentLibrary/FormComponents/CustomInput';
 import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
 import { useForm } from '../utils/hooks/useForm';
 import { IFormEvent } from '../types/form';

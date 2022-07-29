@@ -1,0 +1,17 @@
+@use '../../../../partials/variables' as *;
+@use '../../../../partials/mixins' as *;
+
+.header {
+	@include flex-justify(flex-start, center);
+	height: 50px;
+	// background: #47f3ff24;
+	padding: 5px;
+	&__logo {
+		height: 30px;
+	}
+
+	&__title {
+		margin: 0 0 0 5px;
+		font-family: cursive;
+	}
+}

@@ -1,31 +1,33 @@
 import { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 // Components
-import Form from '../components/componentLibrary/CustomForm';
-import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
-import CustomInput from '../components/componentLibrary/CustomInput';
+import Form from '../componentLibrary/FormComponents/CustomForm';
+import PrimaryButton from '../componentLibrary/Buttons/PrimaryButton';
+import CustomInput from '../componentLibrary/FormComponents/CustomInput';
 
 // Util
-import { useForm } from '../utils/hooks/useForm';
+import { useForm } from '../../utils/hooks/useForm';
+import TopNav from '../componentLibrary/Navigation/TopNav';
+import { Link } from 'react-router-dom';
 
-interface IForm {
+interface ILoginForm {
 	email: string;
 	password: string;
 }
 
-function Register() {
+const Login = () => {
 	const { loginUser } = useContext(AuthContext); // Takes a username and password
 
-	const initFormState: IForm = {
+	const initFormState: ILoginForm = {
 		email: '',
 		password: ''
 	};
 
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(loginUser, initFormState);
 	return (
-		<section>
-			<h1>Login</h1>
+		<>
+			<TopNav title="Login" />
 			<Form onSubmit={handleSubmit}>
 				<CustomInput
 					type="email"
@@ -47,9 +49,12 @@ function Register() {
 				/>
 
 				<PrimaryButton type="submit" text="Login" />
+				<span style={{ marginTop: '3px' }}>
+					Need an account? <Link to="/auth?register">Sign up</Link>
+				</span>
 			</Form>
-		</section>
+		</>
 	);
-}
+};
 
-export default Register;
+export default Login;

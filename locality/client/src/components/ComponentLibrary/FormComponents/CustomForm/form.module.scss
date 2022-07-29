@@ -1,0 +1,9 @@
+@use '../../../../partials/variables' as *;
+@use '../../../../partials/mixins' as *;
+
+.form {
+	@include flex-center();
+	flex-direction: column;
+	margin: 0 15px;
+	padding: 10px 0;
+}

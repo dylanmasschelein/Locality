@@ -3,12 +3,12 @@ import { useForm } from '../../utils/hooks/useForm';
 import styles from '../componentLibrary/CustomInput/input.module.scss';
 
 // Components
-import Form from '../../components/componentLibrary/CustomForm';
-import CustomInput from '../../components/componentLibrary/CustomInput';
-import CustomTextArea from '../componentLibrary/CustomTextArea';
+import Form from '../componentLibrary/FormComponents/CustomForm';
+import CustomInput from '../componentLibrary/FormComponents/CustomInput';
+import CustomTextArea from '../componentLibrary/FormComponents/CustomTextArea';
 import PrimaryButton from '../../components/componentLibrary/Buttons/PrimaryButton';
 import { SelectChangeEvent } from '@mui/material';
-import CustomDropdown from '../componentLibrary/CustomDopdown';
+import CustomDropdown from '../componentLibrary/FormComponents/CustomDopdown';
 import { businessTypeOptions, cityOptions } from '../../utils/global_vars';
 
 export interface IBusinessData {

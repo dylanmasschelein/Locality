@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react';
 import { convertDataToFormData } from '../../../utils/global_functions';
 import { useForm } from '../../../utils/hooks/useForm';
 import PrimaryButton from '../../componentLibrary/Buttons/PrimaryButton';
-import CustomInput from '../../componentLibrary/CustomInput';
+import CustomInput from '../../componentLibrary/FormComponents/CustomInput';
 import styles from './image.module.scss';
 
 interface IProps {

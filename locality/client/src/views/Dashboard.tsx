@@ -8,6 +8,7 @@ import { useQuery } from '../utils/hooks/useQuery';
 import AuthContext from '../context/AuthContext';
 import { Modal } from 'semantic-ui-react';
 import ImageUpload from '../components/spDashboardComponents/ImageUpload';
+import { getUserData } from '../api/accounts';
 
 // import styles from '../'
 
@@ -17,20 +18,18 @@ interface IProps {
 	// prop2: string
 }
 
-const SpDashboard: FC<IProps> = () => {
+const Dashboard: FC<IProps> = () => {
 	// grab user
-	const { user } = useContext(AuthContext);
+	const { token, logoutUser, userDataMan } = useContext(AuthContext);
 	const { query, id }: any = useQuery(); // Fucking sort this shit out lol.
 	// sort out how to access url queries
-	const registerBusiness = query === 'business';
 
-	const [modal, setModal] = useState(registerBusiness);
 	const [businessData, setBusinessData] = useState<IBusinessData | null>(null);
+	const [user, setUser] = useState<any>(null);
 
 	const postBusinessData = async (formData: IBusinessData): Promise<void> => {
 		const business = await postBusiness({ ...formData, user: +id });
 		setBusinessData(business);
-		setModal(false); // Will need error handling
 	};
 
 	// get pk from the user, which is taken from context
@@ -39,22 +38,26 @@ const SpDashboard: FC<IProps> = () => {
 		setBusinessData(business);
 	};
 
-	useEffect(() => {
-		// check what the field is called
-		if (user?.business_id) getBusinessData(user.business_id);
-	}, [query?.business, user?.business_id]);
+	const fetchUser = async (pk: number) => {
+		const userData = await getUserData(pk);
+		console.log(userData);
+		setUser(userData);
+	};
 
-	const toggleModal = () => setModal(!modal);
-	console.log(businessData);
+	useEffect(() => {
+		console.log('fuck');
+		fetchUser(token.user_id);
+	}, [token]);
+
 	return (
 		<div>
-			<CustomModal open={modal} close={toggleModal}>
-				<BusinessForm postBusinessData={postBusinessData} />
-			</CustomModal>
-			<h1>Welcome to your Profile!</h1>
-			<ImageUpload businessId={businessData?.id} />
+			{/* <BusinessForm postBusinessData={postBusinessData} /> */}
+			<h1>{user?.first_name}</h1>
+			<button type="button" onClick={logoutUser}>
+				Logout
+			</button>
 		</div>
 	);
 };
 
-export default SpDashboard;
+export default Dashboard;

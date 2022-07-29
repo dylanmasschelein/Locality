@@ -15,10 +15,10 @@ interface IProps {
 
 const CustomInput: FC<IProps> = ({ type, placeholder, required, styles, value, name, onChange, label, errors }) => (
 	<div className={defaultStyles.input_container}>
-		{label && <label className={defaultStyles.label}>{label}</label>}
+		{/* {label && <label className={defaultStyles.label}>{label}</label>} */}
 		<input
 			type={type || 'text'}
-			placeholder={placeholder || ''}
+			placeholder={label || ''}
 			className={`${defaultStyles.input} ${styles}`}
 			value={value}
 			name={name}

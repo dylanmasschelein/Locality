@@ -2,12 +2,12 @@ import { createContext, useState, useEffect, FC, ReactNode } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
-import { ICustomerRegisterForm } from '../views/CustomerRegistrationPage';
-import { ISPRegisterForm } from '../views/ServiceProviderRegistrationPage';
+import { IRegisterForm } from '../components/AuthComponents/Registration';
 import { convertDataToFormData } from '../utils/global_functions';
+import { getUserData } from '../api/accounts';
 
 const AuthContext = createContext<any>(null); // Type the context?? - DS
-type RegisterForms = ICustomerRegisterForm | ISPRegisterForm;
+type RegisterForms = IRegisterForm;
 
 export default AuthContext;
 
@@ -16,43 +16,44 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 	const initToken: string | null = localStorage.getItem('authTokens') ? localStorage.getItem('authTokens') : null;
 
 	const [authTokens, setAuthTokens] = useState(initToken ? JSON.parse(initToken) : null);
-	const [user, setUser] = useState(initToken ? jwt_decode(initToken) : null);
+	const [token, setToken] = useState(initToken ? jwt_decode(initToken) : null);
 	const [loading, setLoading] = useState(true);
 	// NavigateFunction type
 	const navigate: any = useNavigate();
 
 	const loginUser = async (formData: any) => {
-		console.log(formData);
-		const userToken = await axios.post('http://localhost:8000/accounts/token/', formData, {
+		const userToken = await axios.post('http://127.0.0.1:8000/accounts/token/', formData, {
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
-
 		if (userToken.status === 200) {
+			const decodedToken: any = jwt_decode(userToken.data.access); // TODO:
 			setAuthTokens(userToken);
-			setUser(jwt_decode(userToken.data.access));
+			setToken(decodedToken);
+
 			localStorage.setItem('authTokens', JSON.stringify(userToken.data.access));
-			navigate('/', { replace: true });
+			// const fetchUser = async () => {
+			// 	const userData = await getUserData(decodedToken.user_id.toString());
+			// 	console.log(userData, 'HJBDWUDUH');
+			// 	setUser(userData);
+			// };
+			navigate(`/dashboard/${decodedToken.user_id}`, { replace: true });
 		} else {
-			alert('Something went wrong!');
+			return false;
 		}
 	};
 
 	// Customize this function to work for customers and service providers
 	const registerUser = async (formData: RegisterForms) => {
-		const response = await fetch('http://127.0.0.1:8000/accounts/customer/', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(formData)
+		console.log(formData);
+		const data = convertDataToFormData(formData);
+		const userData = await axios.post('http://127.0.0.1:8000/accounts/create_customer/', data, {
+			headers: { 'Content-Type': 'multipart/form-data' }
 		});
 
-		const userData = await response.json();
-		if (response.status === 200) {
-			const navigateLink = userData.is_customer ? '/' : `/dashboard/${userData.id}/?business`;
-			navigate(navigateLink, { replace: true });
+		if (userData.status === 200) {
+			await loginUser(formData);
 		} else {
 			alert('Something went wrong!');
 		}
@@ -60,14 +61,14 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 
 	const logoutUser = () => {
 		setAuthTokens(null);
-		setUser(null);
+		setToken(null);
 		localStorage.removeItem('authTokens');
 		navigate('/', { replace: true });
 	};
 
 	const contextData = {
-		user,
-		setUser,
+		token,
+		setToken,
 		authTokens,
 		setAuthTokens,
 		registerUser,
@@ -78,7 +79,7 @@ export const AuthProvider: FC<ReactNode | any> = ({ children }) => {
 	useEffect(() => {
 		if (authTokens) {
 			console.log(authTokens);
-			setUser(jwt_decode(authTokens));
+			setToken(jwt_decode(authTokens));
 		}
 		setLoading(false);
 	}, [authTokens, loading]);

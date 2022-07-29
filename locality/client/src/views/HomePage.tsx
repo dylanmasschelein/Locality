@@ -5,7 +5,7 @@ import { IBusinessData } from '../components/spDashboardComponents/BusinessForm'
 import { useUserInput, useSearch } from '../utils/hooks/useSearch';
 import styles from '../components/homeComponents/BusinessCard/business-card.module.scss';
 import ScrollableIcons from '../components/componentLibrary/ScrollableIcons';
-import CustomSearchField from '../components/componentLibrary/CustomSearchField';
+import CustomSearchField from '../components/componentLibrary/FormComponents/CustomSearchField';
 
 const Home = () => {
 	const [businessList, setBusinessList] = useState<IBusinessData[]>([]);
@@ -34,8 +34,6 @@ const Home = () => {
 		}
 		setValue(newValue);
 	};
-
-
 
 	// const handleSearch = e => {
 	// 	const search = useSearch(businessList, e.target.value);

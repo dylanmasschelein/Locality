@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { capitalize } from '../../../utils/global_functions';
+import { capitalize } from '../../../../utils/global_functions';
 import Select from '@mui/material/Select';
 import styles from '../CustomInput/input.module.scss';
 import { InputLabel } from '@mui/material';

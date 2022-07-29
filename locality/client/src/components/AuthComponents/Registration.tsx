@@ -1,57 +1,44 @@
 import { useContext, SyntheticEvent, useMemo, useEffect } from 'react';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 // Components
-import Form from '../components/componentLibrary/CustomForm';
-import CustomInput from '../components/componentLibrary/CustomInput';
-import PrimaryButton from '../components/componentLibrary/Buttons/PrimaryButton';
-import { useForm } from '../utils/hooks/useForm';
-import { IFormEvent } from '../types/form';
-import { useQuery } from '../utils/hooks/useQuery';
+import Form from '../componentLibrary/FormComponents/CustomForm';
+import CustomInput from '../componentLibrary/FormComponents/CustomInput';
+import PrimaryButton from '../componentLibrary/Buttons/PrimaryButton';
+import { useForm } from '../../utils/hooks/useForm';
+import { IFormEvent } from '../../types/form';
+import { useQuery } from '../../utils/hooks/useQuery';
+import Image from '../componentLibrary/Image';
+import TopNav from '../componentLibrary/Navigation/TopNav';
+import { Link } from 'react-router-dom';
+import CustomFileField from '../componentLibrary/FormComponents/CustomFIleField';
 
-export interface ICustomerRegisterForm {
+export interface IRegisterForm {
 	first_name: string;
 	last_name: string;
 	city: string;
+	photo: string;
 	email: string;
 	password: string;
 	password2: string;
-	is_customer: boolean;
-	is_sp: boolean;
-	is_admin: boolean;
-	username: string;
 }
 
-const CustomerRegistrationPage = () => {
+const Registration = () => {
 	const { registerUser } = useContext(AuthContext);
-	const { query }: any = useQuery();
-	const initialFormState: ICustomerRegisterForm = {
+	const initialFormState: IRegisterForm = {
 		first_name: '',
 		last_name: '',
-		city: '',
+		photo: '',
+		city: 'Vancouver',
 		email: '',
 		password: '',
-		password2: '',
-		is_customer: query?.customer === 'true' && true,
-		is_sp: true,
-		is_admin: false,
-		username: ''
+		password2: ''
 	};
-
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(registerUser, initialFormState);
-	console.log(formData);
 	return (
-		<section>
-			<h1>Customer Registration</h1>
+		<>
+			<TopNav title="Register" />
 			<Form onSubmit={handleSubmit}>
-				<CustomInput
-					type="text"
-					label="Username"
-					name="username"
-					value={formData.username}
-					onChange={handleInputChange}
-					errors={errors}
-				/>
 				<CustomInput
 					type="text"
 					label="First Name"
@@ -68,14 +55,21 @@ const CustomerRegistrationPage = () => {
 					onChange={handleInputChange}
 					errors={errors}
 				/>
-				<CustomInput
+				<CustomFileField
+					label="Photo"
+					name="photo"
+					value={''}
+					onChange={(e: any) => handleInputChange(e, true)}
+					errors={errors}
+				/>
+				{/* <CustomInput
 					type="text"
 					label="City"
 					name="city"
 					value={formData.city}
 					onChange={handleInputChange}
 					errors={errors}
-				/>
+				/> */}
 				<CustomInput
 					type="email"
 					label="Email"
@@ -101,9 +95,12 @@ const CustomerRegistrationPage = () => {
 					errors={errors}
 				/>
 				<PrimaryButton type="submit" text="Register" topMargin />
+				<span style={{ marginTop: '3px' }}>
+					Already have an account? <Link to="/auth">Login</Link>
+				</span>
 			</Form>
-		</section>
+		</>
 	);
 };
 
-export default CustomerRegistrationPage;
+export default Registration;
