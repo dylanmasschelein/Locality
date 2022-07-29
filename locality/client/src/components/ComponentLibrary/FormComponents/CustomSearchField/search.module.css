@@ -1,0 +1,24 @@
+.input {
+  width: 100%;
+  padding: 2px 0;
+  display: flex;
+  flex-direction: column;
+}
+.input__field {
+  padding: 10px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(154, 154, 154, 0.2392156863);
+}
+.input__field:focus-visible {
+  outline: #66ced6;
+  border: 2px #66ced6 solid;
+}
+.input__field::-moz-placeholder {
+  color: #c5c5c5;
+}
+.input__field:-ms-input-placeholder {
+  color: #c5c5c5;
+}
+.input__field::placeholder {
+  color: #c5c5c5;
+}/*# sourceMappingURL=search.module.css.map */

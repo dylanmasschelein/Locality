@@ -1,4 +1,4 @@
-import { getBusinessList } from '../api/business';
+// import { getBusinessList } from '../api/business';
 import { useEffect, useState, useCallback } from 'react';
 import BusinessCard from '../components/homeComponents/BusinessCard';
 import { IBusinessData } from '../components/spDashboardComponents/BusinessForm';
@@ -14,16 +14,16 @@ const Home = () => {
 	// const searchText = useUserInput('');
 
 	// Will need a scalable solution
-	const fetchBusinessList = useCallback(async () => {
-		const list = await getBusinessList();
-		setBusinessList(list);
-		setFilteredBusinessList(list);
-		return;
-	}, []);
+	// const fetchBusinessList = useCallback(async () => {
+	// 	const list = await getBusinessList();
+	// 	setBusinessList(list);
+	// 	setFilteredBusinessList(list);
+	// 	return;
+	// }, []);
 
-	useEffect(() => {
-		fetchBusinessList();
-	}, []);
+	// useEffect(() => {
+	// 	fetchBusinessList();
+	// }, []);
 
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		if (newValue === 'explore') {
@@ -45,15 +45,11 @@ const Home = () => {
 			{/* <CustomSearchField onChange={searchText.onChange} value={searchText.value} /> */}
 			<ScrollableIcons value={value} handleChange={handleChange} />
 
-			<div className={styles.business}>
+			{/* <div className={styles.business}>
 				{filteredBusinessList.map((business: IBusinessData) => (
 					<BusinessCard key={business.id} business={business} />
 				))}
-				{/* Business Profile and allow for swipe up to get the list back */}
-				{/* This means ill have to create a swipeable drawer, similar to the one in ModelReno actually */}
-				{/* Take some inspiration from this! */}
-				{/* the swipeable drawer will be a seperate "Layout" component, only attatched to certain pages */}
-			</div>
+			</div> */}
 		</div>
 	);
 };

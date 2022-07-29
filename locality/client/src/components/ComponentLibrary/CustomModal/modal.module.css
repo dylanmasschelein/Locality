@@ -1,0 +1,42 @@
+.modal_container {
+  position: absolute;
+  display: flex;
+  justify-self: center;
+  z-index: 10000 !important;
+}
+
+.modal {
+  font-family: "Lato" !important;
+  height: -webkit-fit-content !important;
+  height: -moz-fit-content !important;
+  height: fit-content !important;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  overflow-y: auto;
+  max-width: 500px;
+  padding: 20px !important;
+}
+
+.modal_content {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 40px !important;
+  }
+}
+/* X-Small screens */
+@media screen and (max-width: 340px) {
+  .modal {
+    padding: 10px !important;
+  }
+}
+.close_icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}/*# sourceMappingURL=modal.module.css.map */

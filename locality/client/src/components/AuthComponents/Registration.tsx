@@ -1,5 +1,4 @@
 import { useContext, SyntheticEvent, useMemo, useEffect } from 'react';
-import AuthContext from '../../context/AuthContext';
 
 // Components
 import Form from '../componentLibrary/FormComponents/CustomForm';
@@ -10,8 +9,12 @@ import { IFormEvent } from '../../types/form';
 import { useQuery } from '../../utils/hooks/useQuery';
 import Image from '../componentLibrary/Image';
 import TopNav from '../componentLibrary/Navigation/TopNav';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import CustomFileField from '../componentLibrary/FormComponents/CustomFIleField';
+import axios from 'axios';
+import { convertDataToFormData } from '../../utils/global_functions';
+import { useDispatch } from 'react-redux';
+import authSlice from '../../store/slices/auth';
 
 export interface IRegisterForm {
 	first_name: string;
@@ -24,7 +27,25 @@ export interface IRegisterForm {
 }
 
 const Registration = () => {
-	const { registerUser } = useContext(AuthContext);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const handleRegistration = async (data: IRegisterForm) => {
+		const formData = convertDataToFormData(data);
+		const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register/`, formData);
+		if (res.status === 201) {
+			dispatch(
+				authSlice.actions.setAuthTokens({
+					token: res.data.token,
+					refreshToken: res.data.refresh
+				})
+			);
+			dispatch(authSlice.actions.setAccount(res.data.user));
+			navigate('/dashboard');
+		} else {
+			alert('uh oh');
+		}
+	};
 	const initialFormState: IRegisterForm = {
 		first_name: '',
 		last_name: '',
@@ -34,7 +55,7 @@ const Registration = () => {
 		password: '',
 		password2: ''
 	};
-	const { errors, formData, handleInputChange, handleSubmit } = useForm(registerUser, initialFormState);
+	const { errors, formData, handleInputChange, handleSubmit } = useForm(handleRegistration, initialFormState);
 	return (
 		<>
 			<TopNav title="Register" />

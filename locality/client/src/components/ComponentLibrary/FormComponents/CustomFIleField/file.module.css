@@ -1,0 +1,13 @@
+.input {
+  padding: 5px 0;
+  width: 100%;
+}
+
+.input input::-webkit-file-upload-button {
+  background: #66ced6;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}/*# sourceMappingURL=file.module.css.map */

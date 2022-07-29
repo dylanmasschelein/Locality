@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  padding: 5px;
+}
+.header__logo {
+  height: 30px;
+}
+.header__title {
+  margin: 0 0 0 5px;
+  font-family: cursive;
+}/*# sourceMappingURL=topnav.module.css.map */

@@ -1,0 +1,49 @@
+.input_container {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 10px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(154, 154, 154, 0.2392156863);
+}
+.input:focus-visible {
+  outline: #66ced6;
+  border: 2px #66ced6 solid;
+}
+
+.input::-moz-placeholder {
+  color: #c5c5c5;
+}
+
+.input:-ms-input-placeholder {
+  color: #c5c5c5;
+}
+
+.input::placeholder {
+  color: #c5c5c5;
+}
+
+.label {
+  display: inline-flex;
+  padding: 5px 0;
+  font-family: "Lato";
+  font-weight: 600;
+  align-self: flex-start;
+  font-size: 14px;
+  color: #6c6c6c;
+}
+
+.input_error {
+  color: rgb(242, 41, 41);
+  font-size: 12px;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.align_left {
+  text-align: left;
+}/*# sourceMappingURL=input.module.css.map */

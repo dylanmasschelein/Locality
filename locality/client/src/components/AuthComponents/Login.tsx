@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import AuthContext from '../../context/AuthContext';
-
 // Components
 import Form from '../componentLibrary/FormComponents/CustomForm';
 import PrimaryButton from '../componentLibrary/Buttons/PrimaryButton';
@@ -9,7 +6,10 @@ import CustomInput from '../componentLibrary/FormComponents/CustomInput';
 // Util
 import { useForm } from '../../utils/hooks/useForm';
 import TopNav from '../componentLibrary/Navigation/TopNav';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import authSlice from '../../store/slices/auth';
+import { useDispatch } from 'react-redux';
 
 interface ILoginForm {
 	email: string;
@@ -17,14 +17,32 @@ interface ILoginForm {
 }
 
 const Login = () => {
-	const { loginUser } = useContext(AuthContext); // Takes a username and password
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const handleLogin = async (formData: ILoginForm) => {
+		const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login/`, formData);
+
+		if (res.status === 200) {
+			dispatch(
+				authSlice.actions.setAuthTokens({
+					token: res.data.access,
+					refreshToken: res.data.refresh
+				})
+			);
+			dispatch(authSlice.actions.setAccount(res.data.user));
+			navigate('/');
+		} else {
+			alert('Issue logging in somewhere');
+		}
+	};
 
 	const initFormState: ILoginForm = {
 		email: '',
 		password: ''
 	};
 
-	const { errors, formData, handleInputChange, handleSubmit } = useForm(loginUser, initFormState);
+	const { errors, formData, handleInputChange, handleSubmit } = useForm(handleLogin, initFormState);
 	return (
 		<>
 			<TopNav title="Login" />

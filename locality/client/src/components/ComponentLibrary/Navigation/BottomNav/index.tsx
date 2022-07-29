@@ -12,7 +12,6 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ExploreIcon from '@mui/icons-material/Explore';
 import styles from './bottom-nav.module.scss';
 import { Link } from 'react-router-dom';
-import AuthContext from '../../../../context/AuthContext';
 
 interface IProps {
 	children: React.ReactElement;
@@ -20,7 +19,7 @@ interface IProps {
 
 const BottomNav = () => {
 	const [value, setValue] = useState(0);
-	const { user } = useContext(AuthContext);
+	// const { user } = useContext(AuthContext);
 
 	return (
 		<BottomNavigation
@@ -47,7 +46,7 @@ const BottomNav = () => {
 			<BottomNavigationAction
 				className={styles.text}
 				component={Link}
-				to={user ? '/dashboard' : '/auth'}
+				to="/dashboard"
 				label="Profile"
 				icon={<AccountCircleIcon className={styles.icon} />}
 			/>
