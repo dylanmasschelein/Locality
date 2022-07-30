@@ -13,3 +13,8 @@ export interface AccountResponse {
 	access: string;
 	refresh: string;
 }
+
+export interface IDashboardOptions {
+	text: string;
+	link: string;
+}

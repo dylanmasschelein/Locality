@@ -1,0 +1,31 @@
+import { useState, useEffect, FC } from 'react';
+import { IDashboardOptions } from '../../../types/users';
+import styles from './options.module.scss';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
+
+interface IProps {
+	options: IDashboardOptions[];
+	header: string;
+}
+
+const AccountOptions: FC<IProps> = ({ options, header }) => {
+	const navigate = useNavigate();
+	return (
+		<div className={styles.options}>
+			<h3>{header}</h3>
+			{options.map(option => (
+				<div className={styles.options__option} onClick={() => navigate(`${option.link}`)}>
+					<div className={styles.options__title}>
+						<AccountCircleIcon />
+						<h5>{option.text}</h5>
+					</div>
+					<ArrowForwardIcon className={styles.option__icon} />
+				</div>
+			))}
+		</div>
+	);
+};
+
+export default AccountOptions;

@@ -1,16 +1,14 @@
 import { useState, useEffect, FC, useContext } from 'react';
-import BusinessForm from '../components/spDashboardComponents/BusinessForm';
-import CustomModal from '../components/componentLibrary/CustomModal';
 // import { postBusiness, getBusinessList } from '../api/business';
-import { IBusinessData } from '../components/spDashboardComponents/BusinessForm';
 import { RouteProps, useNavigate, Route } from 'react-router-dom';
 import { useQuery } from '../utils/hooks/useQuery';
-import { Modal } from 'semantic-ui-react';
-import ImageUpload from '../components/spDashboardComponents/ImageUpload';
 import { getUserData } from '../api/accounts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import authSlice from '../store/slices/auth';
+import Image from '../components/componentLibrary/Image';
+import styles from './views.module.scss';
+import AccountOptions from '../components/Dashboard/AccountOptions';
 
 // import styles from '../'
 
@@ -24,7 +22,7 @@ const Dashboard: FC<IProps> = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const auth = useSelector((state: RootState) => state.auth);
-
+	const { account: user }: any = auth;
 	// grab user
 	// const { token, logoutUser, userDataMan } = useContext(AuthContext);
 	// const { query, id }: any = useQuery(); // Fucking sort this shit out lol.
@@ -59,17 +57,61 @@ const Dashboard: FC<IProps> = () => {
 	// 	console.log('fuck');
 	// 	fetchUser(id);
 	// }, [id]);
-
+	console.log(user);
 	useEffect(() => {
 		if (!auth.account) {
 			navigate('/auth', { replace: true });
 		}
 	}, []);
 
+	const accountSettingsOptions = [
+		{
+			text: 'Personal Information',
+			link: '/personal_info'
+		},
+		{
+			text: 'Payments',
+			link: '/payments'
+		},
+		{
+			text: 'Notifications',
+			link: '/notifications'
+		},
+		{
+			text: 'Privacy and Sharing',
+			link: '/privacy'
+		}
+	];
+
+	const businessOptions = [
+		{
+			text: 'Register my business',
+			link: '/my_business'
+		},
+		{
+			text: 'Manage my business',
+			link: '/manage'
+		},
+		{
+			text: 'Promote my business',
+			link: '/promote'
+		},
+		{
+			text: 'Manage Bookings',
+			link: '/bookings'
+		}
+	];
 	return (
-		<div>
+		<div className={styles.dashboard}>
 			{/* <BusinessForm postBusinessData={postBusinessData} /> */}
-			<h1>Yo</h1>
+			<Image srcLink={user.photo} styles={styles.profile_image} />
+			<h2 >{user.first_name}</h2>
+			<span>Show profile</span>
+
+			<div className={styles.option_container}>
+				<AccountOptions options={accountSettingsOptions} header="Account Settings" />
+				<AccountOptions options={businessOptions} header="Business Management" />
+			</div>
 			<button type="button" onClick={handleLogout}>
 				Logout
 			</button>

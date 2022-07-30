@@ -1,3 +1,32 @@
+@use '../partials//variables.scss' as *;
+@use '../partials//mixins.scss' as *;
+
 .form {
 	margin-top: 50px;
+}
+
+// Dashboard
+.dashboard {
+	padding: 20px;
+}
+
+.dashboard h2 {
+	margin: 5px 0 0 0;
+}
+
+.dashboard span {
+	border-bottom: 1px solid $primary-color;
+	font-weight: 700;
+}
+
+.profile_image {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	display: block;
+	object-fit: cover;
+}
+
+.option_container {
+	margin: 20px 0;
 }

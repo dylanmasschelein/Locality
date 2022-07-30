@@ -1,7 +1,8 @@
+from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 from user.views import UserViewSet
 from auth.views import LoginViewSet, RegistrationViewSet, RefreshViewSet
-from business.views import BusinessViewSet
+from business.views import BusinessViewSet, BusinessQuery
 
 
 routes = SimpleRouter()
@@ -19,5 +20,6 @@ routes.register(r'user', UserViewSet, basename='user')
 routes.register(r'business', BusinessViewSet, basename='business')
 
 urlpatterns = [
-    *routes.urls
+    *routes.urls,
+    path('business/type', BusinessQuery.as_view()),
 ]

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { IBusinessData } from '../../components/spDashboardComponents/BusinessForm';
 import { convertDataToFormData } from '../../utils/global_functions';
 
 export const getUserData = async (pk: any): Promise<any> => {
