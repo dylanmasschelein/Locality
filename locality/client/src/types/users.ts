@@ -17,4 +17,5 @@ export interface AccountResponse {
 export interface IDashboardOptions {
 	text: string;
 	link: string;
+	alternateAction?: any;
 }

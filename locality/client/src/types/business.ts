@@ -9,3 +9,13 @@ export interface IBusiness {
 	user: any;
     srcList?: any
 }
+
+export interface IBusinessForm {
+	business_name: string;
+	legal_name: string;
+	business_number: string;
+	business_type: string;
+	description: string;
+	location: string;
+	photo: any;
+}

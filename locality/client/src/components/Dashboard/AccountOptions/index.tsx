@@ -4,6 +4,9 @@ import styles from './options.module.scss';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import { SwipeableDrawer } from '@mui/material';
+import CustomDrawer from '../../componentLibrary/CustomDrawer';
+import BusinessForm from '../../business/BusinessForm';
 
 interface IProps {
 	options: IDashboardOptions[];
@@ -12,11 +15,15 @@ interface IProps {
 
 const AccountOptions: FC<IProps> = ({ options, header }) => {
 	const navigate = useNavigate();
+
 	return (
 		<div className={styles.options}>
 			<h3>{header}</h3>
 			{options.map(option => (
-				<div className={styles.options__option} onClick={() => navigate(`${option.link}`)}>
+				<div
+					className={styles.options__option}
+					onClick={option.alternateAction ? option.alternateAction : () => navigate(`${option.link}`)}
+				>
 					<div className={styles.options__title}>
 						<AccountCircleIcon />
 						<h5>{option.text}</h5>

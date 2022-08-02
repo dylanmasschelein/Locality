@@ -9,6 +9,8 @@ import authSlice from '../store/slices/auth';
 import Image from '../components/componentLibrary/Image';
 import styles from './views.module.scss';
 import AccountOptions from '../components/Dashboard/AccountOptions';
+import CustomDrawer from '../components/componentLibrary/CustomDrawer';
+import BusinessForm from '../components/business/BusinessForm';
 
 // import styles from '../'
 
@@ -21,6 +23,8 @@ interface IProps {
 const Dashboard: FC<IProps> = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+	const handleToggle = () => setToggleDrawer(toggle => !toggle);
 	const auth = useSelector((state: RootState) => state.auth);
 	const { account: user }: any = auth;
 	// grab user
@@ -86,6 +90,7 @@ const Dashboard: FC<IProps> = () => {
 	const businessOptions = [
 		{
 			text: 'Register my business',
+			alternateAction: handleToggle,
 			link: '/my_business'
 		},
 		{
@@ -103,9 +108,12 @@ const Dashboard: FC<IProps> = () => {
 	];
 	return (
 		<div className={styles.dashboard}>
+			<CustomDrawer open={toggleDrawer} toggleDrawer={handleToggle}>
+				<BusinessForm />
+			</CustomDrawer>
 			{/* <BusinessForm postBusinessData={postBusinessData} /> */}
 			<Image srcLink={user.photo} styles={styles.profile_image} />
-			<h2 >{user.first_name}</h2>
+			<h2>{user.first_name}</h2>
 			<span>Show profile</span>
 
 			<div className={styles.option_container}>
