@@ -18,4 +18,6 @@ export interface IDashboardOptions {
 	text: string;
 	link: string;
 	alternateAction?: any;
+	icon: any;
+	hideOption?: any;
 }

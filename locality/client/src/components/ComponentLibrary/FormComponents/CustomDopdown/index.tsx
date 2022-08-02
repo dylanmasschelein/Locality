@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const CustomDropdown: FC<IProps> = ({ onChange, value, label, name, options, styling }) => (
-	<div className={`${styles.input_container} ${styling}`}>
+	<div className={`${styles.input_container} ${styling}`} key={label}>
 		{label && <label className={styles.label}>{label}</label>}
 		<FormControl fullWidth>
 			<Select

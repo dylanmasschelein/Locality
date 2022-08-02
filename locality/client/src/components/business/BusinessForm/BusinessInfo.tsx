@@ -11,6 +11,7 @@ interface IProps {
 const BusinessInfo: FC<IProps> = ({ errors, formData, onChange }) => {
 	return (
 		<div className={styles.animation}>
+			<h3>Enter your business details</h3>
 			<CustomInput
 				label="Legal Name"
 				name="legal_name"

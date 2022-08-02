@@ -10,14 +10,15 @@ interface IProps {
 
 const Photo: FC<IProps> = ({ errors, formData, onChange }) => (
 	<div className={styles.animation}>
+		<h3>Upload your business logo</h3>
 		<CustomFileField
 			label="Photo"
 			name="photo"
 			value={''}
 			onChange={(e: any) => onChange(e, true)}
 			errors={errors}
+			styles={styles.file_field}
 		/>
-		;
 	</div>
 );
 

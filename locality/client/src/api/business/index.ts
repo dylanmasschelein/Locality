@@ -6,7 +6,7 @@ export const postBusiness = async (data: any): Promise<any> => {
 	// no any
 	// convert to axios as well
 	const formData = convertDataToFormData(data);
-	const business = await axios.post('http://localhost:8000/accounts/business/', formData, {
+	const business = await axios.post('http://localhost:8000/api/business/', formData, {
 		headers: { 'Content-Type': 'multipart/form-data' }
 	});
 
@@ -23,4 +23,10 @@ export const getBusinessList = async (type: string): Promise<any> => {
 	}
 	console.log(businessList.data);
 	return businessList.data;
+};
+
+export const getBusiness = async (pk: string): Promise<any> => {
+	const business = await axios.get(`http://localhost:8000/api/business/user/${pk}`);
+
+	return business.data;
 };

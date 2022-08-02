@@ -11,8 +11,16 @@ import styles from './views.module.scss';
 import AccountOptions from '../components/Dashboard/AccountOptions';
 import CustomDrawer from '../components/componentLibrary/CustomDrawer';
 import BusinessForm from '../components/business/BusinessForm';
-
-// import styles from '../'
+import { getBusiness } from '../api/business';
+// Icons
+import InfoIcon from '@mui/icons-material/Info';
+import PaidIcon from '@mui/icons-material/Paid';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface IProps {
 	// prop: string
@@ -24,21 +32,10 @@ const Dashboard: FC<IProps> = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+	const [business, setBusiness] = useState(null);
 	const handleToggle = () => setToggleDrawer(toggle => !toggle);
 	const auth = useSelector((state: RootState) => state.auth);
 	const { account: user }: any = auth;
-	// grab user
-	// const { token, logoutUser, userDataMan } = useContext(AuthContext);
-	// const { query, id }: any = useQuery(); // Fucking sort this shit out lol.
-	// // sort out how to access url queries
-
-	// const [businessData, setBusinessData] = useState<IBusinessData | null>(null);
-	// const [user, setUser] = useState<any>(null);
-
-	// const postBusinessData = async (formData: IBusinessData): Promise<void> => {
-	// 	const business = await postBusiness({ ...formData, user: +id });
-	// 	setBusinessData(business);
-	// };
 
 	const handleLogout = () => {
 		dispatch(authSlice.actions.logout());
@@ -46,44 +43,38 @@ const Dashboard: FC<IProps> = () => {
 	};
 
 	// // get pk from the user, which is taken from context
-	// const getBusinessData = async (pk: string): Promise<void> => {
-	// 	const business = await getBusinessList();
-	// 	setBusinessData(business);
-	// };
+	const getBusinessData = async (pk: string): Promise<void> => {
+		const business = await getBusiness(pk);
+		setBusiness(business);
+	};
 
-	// const fetchUser = async (pk: number) => {
-	// 	const userData = await getUserData(pk);
-	// 	console.log(userData);
-	// 	setUser(userData);
-	// };
-	// console.log(id, 'fucking iss');
-	// useEffect(() => {
-	// 	console.log('fuck');
-	// 	fetchUser(id);
-	// }, [id]);
-	console.log(user);
 	useEffect(() => {
 		if (!auth.account) {
 			navigate('/auth', { replace: true });
 		}
+		getBusinessData(user.id);
 	}, []);
 
 	const accountSettingsOptions = [
 		{
 			text: 'Personal Information',
-			link: '/personal_info'
+			link: '/personal_info',
+			icon: <InfoIcon />
 		},
 		{
 			text: 'Payments',
-			link: '/payments'
+			link: '/payments',
+			icon: <PaidIcon />
 		},
 		{
 			text: 'Notifications',
-			link: '/notifications'
+			link: '/notifications',
+			icon: <NotificationsIcon />
 		},
 		{
 			text: 'Privacy and Sharing',
-			link: '/privacy'
+			link: '/',
+			icon: <PrivacyTipIcon />
 		}
 	];
 
@@ -91,25 +82,30 @@ const Dashboard: FC<IProps> = () => {
 		{
 			text: 'Register my business',
 			alternateAction: handleToggle,
-			link: '/my_business'
+			link: '/',
+			icon: <AddBusinessIcon />,
+			hideOption: business
 		},
 		{
 			text: 'Manage my business',
-			link: '/manage'
+			link: '/manage',
+			icon: <ManageAccountsIcon />
 		},
 		{
 			text: 'Promote my business',
-			link: '/promote'
+			link: '/',
+			icon: <LocalAtmIcon />
 		},
 		{
 			text: 'Manage Bookings',
-			link: '/bookings'
+			link: '/',
+			icon: <CalendarMonthIcon />
 		}
 	];
 	return (
 		<div className={styles.dashboard}>
 			<CustomDrawer open={toggleDrawer} toggleDrawer={handleToggle}>
-				<BusinessForm />
+				<BusinessForm id={user.id} handleToggle={handleToggle} />
 			</CustomDrawer>
 			{/* <BusinessForm postBusinessData={postBusinessData} /> */}
 			<Image srcLink={user.photo} styles={styles.profile_image} />

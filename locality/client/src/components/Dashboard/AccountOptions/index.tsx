@@ -19,13 +19,14 @@ const AccountOptions: FC<IProps> = ({ options, header }) => {
 	return (
 		<div className={styles.options}>
 			<h3>{header}</h3>
-			{options.map(option => (
+			{options.map((option, idx) => (
 				<div
-					className={styles.options__option}
+					key={`${idx}-${option.text}`}
+					className={`${styles.options__option} ${option.hideOption && styles.hide}`}
 					onClick={option.alternateAction ? option.alternateAction : () => navigate(`${option.link}`)}
 				>
 					<div className={styles.options__title}>
-						<AccountCircleIcon />
+						{option.icon}
 						<h5>{option.text}</h5>
 					</div>
 					<ArrowForwardIcon className={styles.option__icon} />

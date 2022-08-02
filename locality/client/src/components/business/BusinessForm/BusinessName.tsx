@@ -8,18 +8,17 @@ interface IProps {
 	errors: any;
 }
 
-const BusinessName: FC<IProps> = ({ formData, onChange, errors }) => {
-	return (
-		<div className={styles.animation}>
-			<CustomInput
-				label="Business Name"
-				name="business_name"
-				errors={errors}
-				value={formData.business_name}
-				onChange={onChange}
-			/>
-		</div>
-	);
-};
+const BusinessName: FC<IProps> = ({ formData, onChange, errors }) => (
+	<div className={styles.animation}>
+		<h3>What is the name of your business?</h3>
+		<CustomInput
+			label="Business Name"
+			name="business_name"
+			errors={errors}
+			value={formData.business_name}
+			onChange={onChange}
+		/>
+	</div>
+);
 
 export default BusinessName;

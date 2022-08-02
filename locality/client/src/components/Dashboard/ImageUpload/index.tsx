@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, FC } from 'react';
-import { Form } from 'semantic-ui-react';
+import CustomForm from '../../componentLibrary/FormComponents/CustomForm';
 import { convertDataToFormData } from '../../../utils/global_functions';
 import { useForm } from '../../../utils/hooks/useForm';
 import PrimaryButton from '../../componentLibrary/Buttons/PrimaryButton';
@@ -31,7 +31,7 @@ const ImageUpload: FC<IProps> = ({ businessId }) => {
 	const { errors, formData, handleInputChange, handleSubmit } = useForm(onSumbit, initialFormState);
 
 	return (
-		<Form onSubmit={handleSubmit}>
+		<CustomForm onSubmit={handleSubmit}>
 			<CustomInput
 				type="text"
 				label="Caption"
@@ -49,7 +49,7 @@ const ImageUpload: FC<IProps> = ({ businessId }) => {
 				errors={errors}
 			/>
 			<PrimaryButton type="submit" text="Register Business" topMargin />
-		</Form>
+		</CustomForm>
 	);
 };
 

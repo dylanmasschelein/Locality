@@ -1,11 +1,14 @@
 import { useState, SyntheticEvent } from 'react';
 import { omit } from 'lodash';
 import { IFormEvent, IValue } from '../../types/form';
+import { useDispatch } from 'react-redux';
+import formSlice from '../../store/slices/form';
 
 export const useForm = (onSubmit: any, initialState: any = {}) => {
 	// Add validation??
 	const [formData, setFormData] = useState(initialState);
 	const [errors, setErrors] = useState({});
+	const dispatch = useDispatch();
 
 	const updateErrors = (name: string, message: string) => {
 		setErrors({
@@ -14,7 +17,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		});
 	};
 
-	const validate = (event: SyntheticEvent, name: string, value: IValue, password: string = '') => {
+	const validate = (event: SyntheticEvent, name: string, value: string, password: string = '') => {
 		switch (name) {
 			case 'first_name':
 				if (value.length <= 1) {
@@ -29,6 +32,30 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 					updateErrors(name, 'Last name must be a minimum of 2 letters');
 				} else {
 					const newObj = omit(errors, 'lastName');
+					setErrors(newObj);
+				}
+				break;
+			case 'business_name':
+				if (value.length <= 1) {
+					updateErrors(name, 'Business Name must be a minimum of 2 letters');
+				} else {
+					const newObj = omit(errors, 'business_name');
+					setErrors(newObj);
+				}
+				break;
+			case 'legal_name':
+				if (value.length <= 1) {
+					updateErrors(name, 'Legal name must be a minimum of 2 letters');
+				} else {
+					const newObj = omit(errors, 'legal_name');
+					setErrors(newObj);
+				}
+				break;
+			case 'business_number':
+				if (value.length <= 1) {
+					updateErrors(name, 'Business number must be in xxx-xxx-xxx format');
+				} else {
+					const newObj = omit(errors, 'business_number');
 					setErrors(newObj);
 				}
 				break;
@@ -74,8 +101,17 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		}
 	};
 
+	// const handleDispatch = (formData: any, name: string, value: string) => {
+	// 	dispatch(
+	// 		formSlice.actions.setFormData({
+	// 			...formData,
+	// 			[name]: value
+	// 		})
+	// 	);
+	// };
+
 	const handleInputChange = (e: IFormEvent, file: any = null) => {
-		// validate(e, e.target.name, e.target.value);
+		validate(e, e.target.name, e.target.value);
 
 		// How you getting in here?
 		if (file) {
@@ -85,7 +121,7 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		}
 	};
 
-	const handleSubmit = (e: SyntheticEvent) => {
+	const handleSubmit = (e: IFormEvent) => {
 		if (e) e.preventDefault();
 
 		// Object.keys(formData).forEach(key => {
@@ -98,5 +134,5 @@ export const useForm = (onSubmit: any, initialState: any = {}) => {
 		}
 	};
 
-	return { formData, errors, handleInputChange, handleSubmit };
+	return { formData, errors, handleInputChange, handleSubmit /* handleDispatch */ };
 };

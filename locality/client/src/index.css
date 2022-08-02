@@ -9,3 +9,9 @@
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
 	border: 1px solid #9a9a9a3d !important;
 }
+
+/* MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate css-5xe99f-MuiLinearProgress-bar1 */
+
+.css-5xe99f-MuiLinearProgress-bar1 {
+	background: #8a2be2 !important;
+}

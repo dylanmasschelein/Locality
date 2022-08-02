@@ -1,4 +1,4 @@
-import { Box, LinearProgress } from '@mui/material';
+import { Box, LinearProgress, withStyles } from '@mui/material';
 import { useState, useEffect, FC } from 'react';
 import styles from './business.module.scss';
 

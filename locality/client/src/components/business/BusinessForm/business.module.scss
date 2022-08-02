@@ -1,7 +1,12 @@
 @use '../../../partials/keyframes' as *;
+@use '../../../partials/variables' as *;
 
 .form {
-	height: 400px;
+	height: 300px;
+	padding: 20px 20px;
+
+	&__back {
+	}
 	&__btn {
 		width: 165px;
 		margin-left: auto;
@@ -15,8 +20,17 @@
 	-ms-animation: fadein 1s; /* Internet Explorer */
 	-o-animation: fadein 1s; /* Opera < 12.1 */
 	animation: fadein 1s;
+
+	& h3 {
+		margin: 10px 0 10px 0;
+	}
 }
 
 .progress_bar {
-	height: 16px !important;
+	height: 8px !important;
+	background: $accent-color !important;
+}
+
+.file_field input[type='file'] {
+	margin: 20px 0;
 }
